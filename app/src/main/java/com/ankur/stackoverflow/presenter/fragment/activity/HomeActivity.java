@@ -41,4 +41,13 @@ public class HomeActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            //Navigate to previous Fragment
+        } else {
+            finish();
+        }
+    }
+
 }
