@@ -266,6 +266,7 @@ public class UniSearchFragment extends PresenterFragment<QuestionItemPresenter<Q
 
     @Override
     public void renderItem(QuestionItem questionItem) {
+        LogUtils.debugLog(LOG_TAG, "HERE");
     }
 
     @Override
