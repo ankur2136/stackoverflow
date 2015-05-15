@@ -20,13 +20,13 @@ public class JobExecutor implements ThreadExecutor {
     private static final int              KEEP_ALIVE_TIME      = 10;
 
     // Sets the Time Unit to seconds
-    private static final TimeUnit KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS;
+    private static final TimeUnit         KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS;
 
     private final BlockingQueue<Runnable> mWorkQueue;
 
-    private final ThreadPoolExecutor mThreadPoolExecutor;
+    private final ThreadPoolExecutor      mThreadPoolExecutor;
 
-    private final ThreadFactory mThreadFactory;
+    private final ThreadFactory           mThreadFactory;
 
     public JobExecutor() {
         this.mWorkQueue = new LinkedBlockingQueue<>();

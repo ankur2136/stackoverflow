@@ -1,4 +1,4 @@
-package com.ankur.stackoverflow.Utils;
+package com.ankur.stackoverflow.utils;
 
 import java.util.Locale;
 import android.util.Log;

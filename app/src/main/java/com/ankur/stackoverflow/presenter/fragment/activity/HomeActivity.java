@@ -1,11 +1,15 @@
-package com.ankur.stackoverflow;
+package com.ankur.stackoverflow.presenter.fragment.activity;
 
+import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class HomeActivity extends ActionBarActivity {
+import com.ankur.stackoverflow.R;
+
+public class HomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,7 +18,6 @@ public class HomeActivity extends ActionBarActivity {
         if (savedInstanceState == null) {
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
