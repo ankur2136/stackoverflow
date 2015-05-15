@@ -6,10 +6,12 @@ import android.view.MenuItem;
 
 import com.ankur.stackoverflow.R;
 import com.ankur.stackoverflow.common.NavigationUtils;
+import com.ankur.stackoverflow.common.ViewUtils;
 import com.ankur.stackoverflow.domain.dto.QuestionItem;
 import com.ankur.stackoverflow.presentation.fragment.UniSearchFragment;
 import com.ankur.stackoverflow.presentation.view.BaseView;
 import com.ankur.stackoverflow.utils.LogUtils;
+import com.ankur.stackoverflow.utils.Utils;
 
 public class HomeActivity extends BaseActivity implements BaseView.InteractionListener<Object> {
 
@@ -46,6 +48,15 @@ public class HomeActivity extends BaseActivity implements BaseView.InteractionLi
         case R.id.search:
             NavigationUtils.startFragment(this.getSupportFragmentManager(), R.id.fl_fragment_container,
                     UniSearchFragment.newInstance(), true, NavigationUtils.NO_ANIMATION);
+            break;
+        case R.id.action_dump:
+            try {
+                Utils.dbDump(getApplicationContext());
+                ViewUtils.showShortToast(getApplicationContext(), "Dump Success");
+            } catch (Exception ex) {
+                LogUtils.errorLog(LOG_TAG, "Failed to take DB dump", ex);
+                ViewUtils.showShortToast(getApplicationContext(), "Dump Error");
+            }
             break;
         }
 

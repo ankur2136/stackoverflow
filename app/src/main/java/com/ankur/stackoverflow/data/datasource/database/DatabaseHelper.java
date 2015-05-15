@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final int       VERSION       = 1;
@@ -25,6 +27,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // Create Tables
+        executeQueries(ItemDataSource.getCreateTableQueries(), db);
+
+        // Create Indexes
+        executeQueries(ItemDataSource.getCreateIndexQueries(), db);
+    }
+
+    private void executeQueries(List<String> queries, SQLiteDatabase db) {
+        for (String query : queries) {
+            db.execSQL(query);
+        }
     }
 
     @Override
