@@ -1,6 +1,4 @@
-package com.ankur.stackoverflow.data.database.datasource;
-
-import java.util.List;
+package com.ankur.stackoverflow.data.datasource.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,29 +25,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create Tables
-        // executeQueries(TableName.getCreateTableQueries(), db);
-
-        // Create Indexes
-        // executeQueries(TableName.getCreateIndexQueries(), db);
-
-        // Create triggers
     }
 
     @Override
-    // TODO Sync unsynced items before dropping table
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // executeQueries(TableName.getDropTableQueries(), db);
         onCreate(db);
-    }
-
-    private void executeQueries(List<String> queries, SQLiteDatabase db) {
-        for (String query : queries) {
-            db.execSQL(query);
-        }
-    }
-
-    public void deleteDatabase(Context context) {
-        context.deleteDatabase(DATABASE_NAME);
     }
 }

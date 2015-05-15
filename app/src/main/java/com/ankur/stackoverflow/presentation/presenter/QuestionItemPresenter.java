@@ -3,7 +3,7 @@ package com.ankur.stackoverflow.presentation.presenter;
 import android.view.View;
 
 import com.ankur.stackoverflow.common.QueryParams;
-import com.ankur.stackoverflow.domain.interactor.GetItemUseCase;
+import com.ankur.stackoverflow.domain.interactor.GetItemsUseCase;
 import com.ankur.stackoverflow.domain.usecase.Callback;
 import com.ankur.stackoverflow.executor.ExecutorFactory;
 import com.ankur.stackoverflow.presentation.view.CollectionView;
@@ -13,14 +13,14 @@ public class QuestionItemPresenter<I> extends Presenter<CollectionView> {
 
     private static final String LOG_TAG  = "ITEM_PRESENTER";
 
-    private GetItemUseCase<I>   mGetItemUseCase;
+    private GetItemsUseCase<I>  mGetItemsUseCase;
 
     private Callback<I>         mGetCollectionCallback;
 
     private boolean             isPaused = true;
 
-    public QuestionItemPresenter(GetItemUseCase<I> getItemUseCase) {
-        mGetItemUseCase = getItemUseCase;
+    public QuestionItemPresenter(GetItemsUseCase<I> getItemsUseCase) {
+        mGetItemsUseCase = getItemsUseCase;
         mGetCollectionCallback = new Callback<I>() {
             @Override
             public void onSuccess(I item) {
@@ -78,7 +78,7 @@ public class QuestionItemPresenter<I> extends Presenter<CollectionView> {
     }
 
     private void getItem(QueryParams queryParams) {
-        mGetItemUseCase.getItem(queryParams, ExecutorFactory.getPostExecutionThreadInstance(), mGetCollectionCallback,
+        mGetItemsUseCase.getItem(queryParams, ExecutorFactory.getPostExecutionThreadInstance(), mGetCollectionCallback,
                 true, true);
     }
 

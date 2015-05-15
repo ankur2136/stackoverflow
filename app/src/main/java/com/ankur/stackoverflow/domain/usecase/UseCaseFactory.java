@@ -1,15 +1,15 @@
 package com.ankur.stackoverflow.domain.usecase;
 
-
-import com.ankur.stackoverflow.domain.dto.QuestionItem;
-import com.ankur.stackoverflow.domain.interactor.GetItemUseCase;
+import com.ankur.stackoverflow.data.respository.RepositoryFactory;
+import com.ankur.stackoverflow.domain.interactor.GetItemsUseCase;
 import com.ankur.stackoverflow.executor.ExecutorFactory;
+
+import java.util.List;
 
 public class UseCaseFactory {
 
-    public static GetItemUseCase<QuestionItem> newGetQuestionsItemUseCaseInstance() {
-        return null;
-//        return new GetQuestionItemUseCase(RepositoryFactory.getSongRepositoryInstance(),
-//                RepositoryFactory.getSongContentObserverInstance(), ExecutorFactory.getThreadExecutorInstance());
+    public static GetItemsUseCase newGetQuestionsItemUseCaseInstance() {
+        return new GetQuestionItemsUseCase(RepositoryFactory.getQuestionRepositoryInstance(),
+                ExecutorFactory.getThreadExecutorInstance());
     }
 }

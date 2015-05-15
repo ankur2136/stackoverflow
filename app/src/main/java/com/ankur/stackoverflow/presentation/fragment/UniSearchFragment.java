@@ -185,7 +185,7 @@ public class UniSearchFragment extends PresenterFragment<QuestionItemPresenter<Q
 
     @Override
     protected QuestionItemPresenter<QuestionItem> createPresenter() {
-        return new QuestionItemPresenter<>(UseCaseFactory.newGetQuestionsItemUseCaseInstance());
+        return new QuestionItemPresenter<QuestionItem>(UseCaseFactory.newGetQuestionsItemUseCaseInstance());
     }
 
     @Override
@@ -256,7 +256,7 @@ public class UniSearchFragment extends PresenterFragment<QuestionItemPresenter<Q
     }
 
     @Override
-    public void renderCollection(Collection questionItems) {
+    public void renderCollection(Collection<QuestionItem> questionItems) {
         if (questionItems != null && mQuestionListAdapter != null) {
             mQuestionListAdapter.setQuestionsCollection(questionItems);
             mQuestionListAdapter.notifyDataSetChanged();

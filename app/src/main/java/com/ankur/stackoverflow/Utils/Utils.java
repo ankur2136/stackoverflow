@@ -30,7 +30,7 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.ankur.stackoverflow.common.TypefaceSpan;
-import com.ankur.stackoverflow.data.database.datasource.DatabaseHelper;
+import com.ankur.stackoverflow.data.datasource.database.DatabaseHelper;
 import com.ankur.stackoverflow.domain.ParsingObject;
 
 public class Utils {
