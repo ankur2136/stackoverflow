@@ -14,6 +14,18 @@
 
         />
 
+    <FrameLayout
+        android:id="@+id/fl_fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tb_action_bar">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_home_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
     <include
         android:id="@+id/tb_action_bar"
         layout="@layout/toolbar" />
