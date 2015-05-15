@@ -1,11 +1,10 @@
-package com.ankur.stackoverflow.presenter.fragment.fragment;
+package com.ankur.stackoverflow.presentation.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
-import android.support.v7.internal.widget.ViewUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ankur.stackoverflow.MyApplication;
-import com.ankur.stackoverflow.presenter.fragment.activity.BaseActivity;
+import com.ankur.stackoverflow.presentation.activity.BaseActivity;
 import com.ankur.stackoverflow.utils.LogUtils;
 
 public abstract class BaseFragment extends Fragment {

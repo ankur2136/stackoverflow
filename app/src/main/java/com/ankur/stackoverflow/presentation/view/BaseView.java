@@ -1,4 +1,4 @@
-package com.ankur.stackoverflow.presenter.fragment.view;
+package com.ankur.stackoverflow.presentation.view;
 
 public interface BaseView {
 

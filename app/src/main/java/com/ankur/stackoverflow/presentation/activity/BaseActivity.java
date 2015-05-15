@@ -1,4 +1,4 @@
-package com.ankur.stackoverflow.presenter.fragment.activity;
+package com.ankur.stackoverflow.presentation.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

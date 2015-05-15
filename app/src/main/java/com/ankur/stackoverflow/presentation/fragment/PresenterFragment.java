@@ -1,4 +1,4 @@
-package com.ankur.stackoverflow.presenter.fragment.fragment;
+package com.ankur.stackoverflow.presentation.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,8 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ankur.stackoverflow.presenter.fragment.presenter.BasePresenter;
-import com.ankur.stackoverflow.presenter.fragment.view.BaseView;
+import com.ankur.stackoverflow.presentation.presenter.BasePresenter;
+import com.ankur.stackoverflow.presentation.view.BaseView;
 
 
 public abstract class PresenterFragment<P extends BasePresenter> extends BaseFragment implements BaseView {

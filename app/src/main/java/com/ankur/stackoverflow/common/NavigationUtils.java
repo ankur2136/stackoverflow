@@ -9,11 +9,9 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.internal.widget.ViewUtils;
 
 import com.ankur.stackoverflow.R;
-import com.ankur.stackoverflow.presenter.fragment.activity.BaseActivity;
-import com.ankur.stackoverflow.presenter.fragment.fragment.BaseFragment;
+import com.ankur.stackoverflow.presentation.fragment.BaseFragment;
 import com.ankur.stackoverflow.utils.LogUtils;
 
 /**
@@ -204,7 +202,7 @@ public class NavigationUtils {
         }
     }
 
-    public static Fragment startFragmentInMainPanel(BaseActivity activity, Fragment fragment, boolean addToBackStack,
+    public static Fragment startFragmentInMainPanel(com.ankur.stackoverflow.presentation.activity.BaseActivity activity, Fragment fragment, boolean addToBackStack,
             int customAnimation) {
         // if (activity instanceof BaseHomeActivity) {
         // ((BaseHomeActivity) activity).collapsePlayer();
@@ -245,19 +243,6 @@ public class NavigationUtils {
 
     public static void startActivity(Context context, Intent intent) {
         startActivity(context, intent, true);
-    }
-
-    public static void startStoreListingScreen(Context context, String packageName) {
-        Uri uri = Uri.parse("market://details?id=" + packageName);
-        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-        try {
-            startActivity(context, goToMarket, false, false);
-        } catch (ActivityNotFoundException e) {
-            startActivity(
-                    context,
-                    new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id="
-                            + packageName)));
-        }
     }
 
     public static void startAppInfoScreen(Context context, String packageName) {

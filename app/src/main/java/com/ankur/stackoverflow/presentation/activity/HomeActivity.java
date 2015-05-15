@@ -1,4 +1,4 @@
-package com.ankur.stackoverflow.presenter.fragment.activity;
+package com.ankur.stackoverflow.presentation.activity;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,7 +13,11 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         if (savedInstanceState == null) {
+            startFragments();
         }
+    }
+
+    private void startFragments() {
     }
 
     @Override

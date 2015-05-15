@@ -1,6 +1,6 @@
-package com.ankur.stackoverflow.presenter.fragment.presenter;
+package com.ankur.stackoverflow.presentation.presenter;
 
-import com.ankur.stackoverflow.presenter.fragment.view.BaseView;
+import com.ankur.stackoverflow.presentation.view.BaseView;
 
 import java.lang.ref.WeakReference;
 
