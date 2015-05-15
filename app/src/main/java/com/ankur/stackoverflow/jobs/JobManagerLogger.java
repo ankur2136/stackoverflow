@@ -3,9 +3,6 @@ package com.ankur.stackoverflow.jobs;
 import com.ankur.stackoverflow.utils.LogUtils;
 import com.path.android.jobqueue.log.CustomLogger;
 
-/**
- * Created by arpit on 30/04/15.
- */
 public class JobManagerLogger implements CustomLogger {
 
     private static final String TAG = "JOB_MANAGER_LOGGER";

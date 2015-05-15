@@ -7,7 +7,7 @@ public interface PlayerView<T> {
 
     Context getContext();
 
-    void setCurrentMediaItem(T mediaItem);
+    void setCurrentItem(T mediaItem);
 
     void updateUI(Intent intent);
 

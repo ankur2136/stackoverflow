@@ -122,7 +122,7 @@ public abstract class BaseActivity extends ActionBarActivity {
         super.onActivityResult(arg0, arg1, arg2);
     }
 
-    public MyApplication getMediaApplication() {
+    public MyApplication getMyApplication() {
         return mMyApplication;
     }
 
@@ -135,10 +135,9 @@ public abstract class BaseActivity extends ActionBarActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.ECLAIR
-                && keyCode == KeyEvent.KEYCODE_BACK
-                && event.getRepeatCount() == 0) {
+                && keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
             // Take care of calling this method on earlier versions of
             // the platform where it doesn't exist.
             onBackPressed();
@@ -159,7 +158,6 @@ public abstract class BaseActivity extends ActionBarActivity {
             backPress();
         }
     }
-
 
     public boolean isPaused() {
         return mIsPaused;

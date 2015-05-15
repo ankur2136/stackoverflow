@@ -1,8 +1,5 @@
 package com.ankur.stackoverflow.constants;
 
-/**
- * Created by ankurjain on 5/15/15.
- */
 public class ApiConstants {
 
     public interface Item {
@@ -28,6 +25,20 @@ public class ApiConstants {
         String PROFILE_IMAGE = "profile_image";
         String DISPLAY_NAME  = "display_name";
         String LINK          = "link";
+    }
+
+    public enum UserType {
+        UNREGISTERED(0), REGISTERED(1), MODERATOR(2), DOES_NOT_EXIST(3);
+
+        private final int mValue;
+
+        UserType(final int newValue) {
+            mValue = newValue;
+        }
+
+        public int getValue() {
+            return mValue;
+        }
     }
 
 }

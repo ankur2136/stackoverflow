@@ -31,7 +31,7 @@ import android.view.WindowManager;
 
 import com.ankur.stackoverflow.common.TypefaceSpan;
 import com.ankur.stackoverflow.data.database.datasource.DatabaseHelper;
-import com.ankur.stackoverflow.domain.dto.ParsingObject;
+import com.ankur.stackoverflow.domain.ParsingObject;
 
 public class Utils {
 
@@ -182,7 +182,8 @@ public class Utils {
 
     public static SpannableString getSpannableString(Context context, String text) {
         SpannableString span = new SpannableString(text);
-        span.setSpan(new TypefaceSpan(context, FontUtils.FontStyle.REGULAR), 0, span.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        span.setSpan(new TypefaceSpan(context, FontUtils.FontStyle.REGULAR), 0, span.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return span;
     }
 

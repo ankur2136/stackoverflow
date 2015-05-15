@@ -10,9 +10,6 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by ankurjain on 5/15/15.
- */
 public class QuestionItem implements Serializable, ParsingObject {
 
     private final String LOG_TAG = "CONTENT_ITEM";
@@ -25,7 +22,7 @@ public class QuestionItem implements Serializable, ParsingObject {
     public int           mScore;
     public Long          mLastActivityDate;
     public Long          mCreationDate;
-    public Long          mQuestionId;
+    public int           mQuestionId;
     public String        mLink;
     public String        mTitle;
 
@@ -54,7 +51,7 @@ public class QuestionItem implements Serializable, ParsingObject {
         mScore = obj.optInt(ApiConstants.Item.SCORE, 0);
         mLastActivityDate = obj.optLong(ApiConstants.Item.LAST_ACTIVITY_DATE, 0);
         mCreationDate = obj.optLong(ApiConstants.Item.CREATION_DATE, 0);
-        mQuestionId = obj.getLong(ApiConstants.Item.QUESTION_ID);
+        mQuestionId = obj.getInt(ApiConstants.Item.QUESTION_ID);
         mLink = obj.optString(ApiConstants.Item.LINK, "");
         mTitle = obj.optString(ApiConstants.Item.TITLE, "");
 

@@ -14,9 +14,6 @@ import com.ankur.stackoverflow.R;
 import com.ankur.stackoverflow.presentation.fragment.BaseFragment;
 import com.ankur.stackoverflow.utils.LogUtils;
 
-/**
- * Created by arpit on 24/03/15.
- */
 public class NavigationUtils {
 
     private static final String LOG_TAG          = "NAVIGATION_UTILS";

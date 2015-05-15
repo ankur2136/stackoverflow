@@ -5,8 +5,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ankur.stackoverflow.R;
+import com.ankur.stackoverflow.common.NavigationUtils;
+import com.ankur.stackoverflow.domain.dto.QuestionItem;
+import com.ankur.stackoverflow.presentation.fragment.UniSearchFragment;
+import com.ankur.stackoverflow.presentation.view.BaseView;
+import com.ankur.stackoverflow.utils.LogUtils;
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements BaseView.InteractionListener<Object> {
+
+    private static final String LOG_TAG = "HOME_ACTIVITY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +41,12 @@ public class HomeActivity extends BaseActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        // noinspection SimplifiableIfStatement
         switch (id) {
-            case R.id.action_settings:
-                break;
-            case R.id.search:
-                break;
+        case R.id.search:
+            NavigationUtils.startFragment(this.getSupportFragmentManager(), R.id.fl_fragment_container,
+                    UniSearchFragment.newInstance(), true, NavigationUtils.NO_ANIMATION);
+            break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -48,10 +55,17 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            //Navigate to previous Fragment
+            // Navigate to previous Fragment
         } else {
             finish();
         }
     }
 
+    @Override
+    public void onItemClick(Object item) {
+        if (item instanceof QuestionItem) {
+            QuestionItem questionItem = (QuestionItem) item;
+            LogUtils.debugLog(LOG_TAG, questionItem.mTitle);
+        }
+    }
 }

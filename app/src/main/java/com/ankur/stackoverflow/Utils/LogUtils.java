@@ -3,9 +3,6 @@ package com.ankur.stackoverflow.utils;
 import java.util.Locale;
 import android.util.Log;
 
-/**
- * Created by ankurjain on 5/14/15.
- */
 public class LogUtils {
     private static final String LOG_PREFIX = "[StackOverflow]";
 
