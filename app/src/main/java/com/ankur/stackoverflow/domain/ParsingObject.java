@@ -1,4 +1,4 @@
-package com.ankur.stackoverflow.domain.dto;
+package com.ankur.stackoverflow.domain;
 
 import org.json.JSONException;
 import org.json.JSONObject;
