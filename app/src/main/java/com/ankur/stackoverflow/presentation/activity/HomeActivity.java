@@ -67,7 +67,7 @@ public class HomeActivity extends BaseActivity implements BaseView.InteractionLi
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            // Navigate to previous Fragment
+            getSupportFragmentManager().popBackStack();
         } else {
             finish();
         }

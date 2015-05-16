@@ -132,7 +132,7 @@ public class AnswerListAdapter extends BaseAdapter {
             ViewUtils.setupTextView(votes, item.mUpVote.toString());
             ViewUtils.setupTextView(answers, item.mDownVote.toString());
             ViewUtils.setupTextView(views, item.mScore.toString());
-            ViewUtils.setupTextView(title, item.mTitle);
+            ViewUtils.setupTextView(title, item.mBody);
             ViewUtils.setupTextView(subtitle, item.mOwnerInfo.mDisplayName);
         }
 
