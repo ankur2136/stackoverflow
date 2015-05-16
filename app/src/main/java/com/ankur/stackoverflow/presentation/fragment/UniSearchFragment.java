@@ -46,6 +46,8 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
 
     private static final String               SCROLL_POSITION      = "scroll_position";
 
+    private static final String               SEARCH_QUERY         = "query";
+
     private static final String               KEY_QUESTION_ITEM_ID = "question_item_id";
 
     private static final String               KEY_QUESTION_ITEM    = "question_item";
@@ -57,6 +59,8 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
     private boolean                           mIsKeyboardShown     = true;
 
     SearchResultAdapter                       mQuestionListAdapter;
+
+    String                                    mQuery;
 
     LinearLayoutManager                       mLinearLayoutManager;
 
@@ -134,10 +138,7 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                QueryParams queryParams = QueryParams.getNewInstance();
-                queryParams.setText(query);
-                presenter.init(queryParams);
-                LogUtils.infoLog(LOG_TAG, "Query complete: " + query);
+                findResults(query);
                 return false;
             }
 
@@ -149,6 +150,13 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
 
         item.expandActionView();
         setupKeyboard();
+    }
+
+    private void findResults(String query) {
+        QueryParams queryParams = QueryParams.getNewInstance();
+        queryParams.setText(query);
+        presenter.init(queryParams);
+        LogUtils.infoLog(LOG_TAG, "Query complete: " + query);
     }
 
     private void setupKeyboard() {
@@ -202,8 +210,14 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
             int posArray = savedInstanceState.getInt(SCROLL_POSITION);
+            String query = savedInstanceState.getString(SEARCH_QUERY);
             if (posArray > 0) {
                 mScrollPosition = posArray;
+            }
+
+            if (query != null && !query.equals("")) {
+                mQuery = query;
+                findResults(mQuery);
             }
         }
     }
@@ -219,6 +233,7 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
     public void onSaveInstanceState(Bundle outState) {
         if (mListView != null && mListView.getAdapter() != null) {
             outState.putInt(SCROLL_POSITION, mScrollPosition);
+            outState.putString(SEARCH_QUERY, mQuery);
         }
         super.onSaveInstanceState(outState);
     }
