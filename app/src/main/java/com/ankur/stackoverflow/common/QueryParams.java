@@ -17,13 +17,13 @@ public class QueryParams extends HashMap {
     }
 
 
-    public QueryParams setId(String id) {
+    public QueryParams setId(Integer id) {
         put(QueryKeys.ID, id);
         return this;
     }
 
-    public String getId() {
-        return (String) get(QueryKeys.ID);
+    public Integer getId() {
+        return (Integer) get(QueryKeys.ID);
     }
 
     public QueryParams setText(String id) {

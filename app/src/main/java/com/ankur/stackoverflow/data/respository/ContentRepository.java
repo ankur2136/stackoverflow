@@ -2,6 +2,7 @@ package com.ankur.stackoverflow.data.respository;
 
 import java.util.List;
 
+import com.ankur.stackoverflow.domain.dto.AnswerItem;
 import com.ankur.stackoverflow.domain.dto.QuestionItem;
 
 public interface ContentRepository<T, K> {
@@ -24,15 +25,17 @@ public interface ContentRepository<T, K> {
      * Get question collection item by question type. Collection is present as child
      * items
      *
-     * @param stateList
-     * @param questionItemType
-     * @return
+     * @param questionId
+     * @return List<AnswerItem>
      */
+    List<AnswerItem> getAnswersForQuestion(int questionId);
+
+
     /**
      * Get search results for query
      *
      * @param query
-     * @return
+     * @return List<QuestionItem>
      */
     List<QuestionItem> getSearchResult(String query);
 

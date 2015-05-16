@@ -24,81 +24,70 @@ import android.widget.RelativeLayout;
 
 import com.ankur.stackoverflow.R;
 import com.ankur.stackoverflow.common.QueryParams;
+import com.ankur.stackoverflow.domain.dto.AnswerItem;
 import com.ankur.stackoverflow.domain.dto.QuestionItem;
 import com.ankur.stackoverflow.domain.usecase.UseCaseFactory;
-import com.ankur.stackoverflow.presentation.adapter.SearchResultAdapter;
+import com.ankur.stackoverflow.presentation.adapter.AnswerListAdapter;
 import com.ankur.stackoverflow.presentation.presenter.ItemPresenter;
 import com.ankur.stackoverflow.presentation.view.CollectionView;
 import com.ankur.stackoverflow.utils.LogUtils;
 
-public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionItem>> implements
-        CollectionView<QuestionItem>, SearchResultAdapter.OnItemClickListener {
+public class AnswersListFragment extends PresenterFragment<ItemPresenter<AnswerItem>> implements
+        CollectionView<AnswerItem>, AnswerListAdapter.OnItemClickListener {
 
-    private static final String FRAGMENT_TAG = UniSearchFragment.class.getName();
+    private static final String             FRAGMENT_TAG         = AnswersListFragment.class.getName();
 
-    private String              LOG_TAG      = "UNI_SEARCH_FRAGMENT";
+    private String                          LOG_TAG              = "ANSWER_LIST_FRAGMENT";
 
-    public void setFragmentTagSuffix(String fragmentTagSuffix) {
-        mFragmentTagSuffix = fragmentTagSuffix;
-    }
+    private static final String             SCROLL_POSITION      = "scroll_position";
 
-    private String                            mFragmentTagSuffix   = "";
+    private static final String             KEY_QUESTION_ITEM    = "question_item";
 
-    private static final String               SCROLL_POSITION      = "scroll_position";
+    private int                             mScrollPosition      = 0;
 
-    private static final String               KEY_QUESTION_ITEM_ID = "question_item_id";
+    AnswerListAdapter                       mQuestionListAdapter;
 
-    private static final String               KEY_QUESTION_ITEM    = "question_item";
+    LinearLayoutManager                     mLinearLayoutManager;
 
-    private int                               mScrollPosition      = 0;
+    ListView                                mListView;
 
-    private SearchView                        mSearchView;
+    QuestionItem                            mQuestionItem;
 
-    private boolean                           mIsKeyboardShown     = true;
+    RelativeLayout                          mProgressView;
 
-    SearchResultAdapter                       mQuestionListAdapter;
+    RelativeLayout                          mRetryView;
 
-    LinearLayoutManager                       mLinearLayoutManager;
+    Button                                  mRetry;
 
-    ListView                                  mListView;
-
-    RelativeLayout                            mProgressView;
-
-    RelativeLayout                            mRetryView;
-
-    Button                                    mRetry;
-
-    private InteractionListener<QuestionItem> mListener;
+    private InteractionListener<AnswerItem> mListener;
 
     /**
      * Should not be called from outside this fragment.
      */
-    public UniSearchFragment() {
+    public AnswersListFragment() {
     }
 
-    public static Bundle getQuestionItemBundle(QuestionItem questionItem) {
+    public static Bundle getAnswerItemBundle(QuestionItem questionItem) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(KEY_QUESTION_ITEM, questionItem);
         return bundle;
     }
 
-    public static UniSearchFragment newInstance() {
+    public static AnswersListFragment newInstance() {
         return newInstance(null);
     }
 
-    public static UniSearchFragment newInstance(Bundle bundle) {
-        UniSearchFragment fragment = new UniSearchFragment();
+    public static AnswersListFragment newInstance(Bundle bundle) {
+        AnswersListFragment fragment = new AnswersListFragment();
         if (bundle != null) {
             fragment.setArguments(bundle);
-            fragment.setFragmentTagSuffix(bundle.getString(KEY_QUESTION_ITEM_ID));
-
         }
         return fragment;
     }
 
     @Override
     public String getFragmentTag() {
-        return FRAGMENT_TAG + mFragmentTagSuffix;
+        return FRAGMENT_TAG;
     }
 
     @Override
@@ -120,71 +109,20 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
     @Override
     public void onNewBundle(Bundle bundle) {
         super.onNewBundle(bundle);
+        QuestionItem questionItem = (QuestionItem) bundle.getSerializable(KEY_QUESTION_ITEM);
+        if (questionItem != null) {
+            mQuestionItem = questionItem;
+        }
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
         menu.clear();
-        LogUtils.debugLog(LOG_TAG, "onCreateOptionsMenu");
-        menuInflater.inflate(R.menu.uni_search, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        mSearchView = (SearchView) MenuItemCompat.getActionView(item);
-        setupSearchView(mSearchView);
-
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                QueryParams queryParams = QueryParams.getNewInstance();
-                queryParams.setText(query);
-                presenter.init(queryParams);
-                LogUtils.infoLog(LOG_TAG, "Query complete: " + query);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String query) {
-                return true;
-            }
-        });
-
-        item.expandActionView();
-        setupKeyboard();
-    }
-
-    private void setupKeyboard() {
-        if (mSearchView == null)
-            return;
-
-        if (mIsKeyboardShown) {
-            if (LogUtils.isDebugLogEnabled())
-                LogUtils.debugLog(LOG_TAG, "Bringing up keyboard");
-            mSearchView.setIconified(false);
-            mSearchView.requestFocus();
-        } else {
-            if (LogUtils.isDebugLogEnabled())
-                LogUtils.debugLog(LOG_TAG, "Hiding keyboard");
-            mSearchView.clearFocus();
-        }
-    }
-
-    private void setupSearchView(SearchView searchView) {
-        searchView.setQueryHint(getActivity().getString(R.string.search_hint));
-        searchView.setSearchableInfo(((SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE))
-                .getSearchableInfo(getActivity().getComponentName()));
-
-        searchView.setIconifiedByDefault(false);
-        searchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
-
-        android.support.v7.widget.SearchView.SearchAutoComplete searchAutoComplete = (android.support.v7.widget.SearchView.SearchAutoComplete) searchView
-                .findViewById(android.support.v7.appcompat.R.id.search_src_text);
-        searchAutoComplete.setHintTextColor(Color.LTGRAY);
-        searchAutoComplete.setTextColor(Color.WHITE);
-
     }
 
     @Override
-    protected ItemPresenter<QuestionItem> createPresenter() {
-        return new ItemPresenter<QuestionItem>(UseCaseFactory.newGetQuestionsItemUseCaseInstance());
+    protected ItemPresenter<AnswerItem> createPresenter() {
+        return new ItemPresenter<AnswerItem>(UseCaseFactory.newGetAnswersItemUseCaseInstance());
     }
 
     @Override
@@ -200,6 +138,7 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        loadMediaList();
         if (savedInstanceState != null) {
             int posArray = savedInstanceState.getInt(SCROLL_POSITION);
             if (posArray > 0) {
@@ -207,6 +146,13 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
             }
         }
     }
+
+    private void loadMediaList() {
+        QueryParams queryParams = QueryParams.getNewInstance();
+        queryParams.setId(mQuestionItem.mQuestionId);
+        presenter.init(queryParams);
+    }
+
 
     @Override
     public void onResume() {
@@ -244,7 +190,7 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
 
     private void bindViews() {
         mLinearLayoutManager = new LinearLayoutManager(this.getActivity());
-        mQuestionListAdapter = new SearchResultAdapter(mActivity, new ArrayList<QuestionItem>());
+        mQuestionListAdapter = new AnswerListAdapter(mActivity, new ArrayList<AnswerItem>());
         mListView.setAdapter(mQuestionListAdapter);
     }
 
@@ -255,7 +201,7 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
     }
 
     @Override
-    public void renderCollection(Collection<QuestionItem> questionItems) {
+    public void renderCollection(Collection<AnswerItem> questionItems) {
         if (questionItems != null && mQuestionListAdapter != null) {
             mQuestionListAdapter.setQuestionsCollection(questionItems);
             mQuestionListAdapter.notifyDataSetChanged();
@@ -264,22 +210,22 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
     }
 
     @Override
-    public void renderItem(QuestionItem questionItem) {
+    public void renderItem(AnswerItem questionItem) {
         LogUtils.debugLog(LOG_TAG, "HERE");
     }
 
     @Override
-    public void viewItem(QuestionItem questionItem) {
+    public void viewItem(AnswerItem questionItem) {
         mListener.onItemClick(questionItem);
     }
 
     @Override
-    public void deleteItem(QuestionItem item) {
+    public void deleteItem(AnswerItem item) {
 
     }
 
     @Override
-    public void viewPopupWindow(View anchor, QuestionItem item) {
+    public void viewPopupWindow(View anchor, AnswerItem item) {
     }
 
     @Override
@@ -300,7 +246,7 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
 
     @Override
     public void showRetry() {
-        mQuestionListAdapter.setQuestionsCollection(new ArrayList<QuestionItem>());
+        mQuestionListAdapter.setQuestionsCollection(new ArrayList<AnswerItem>());
         mRetryView.setVisibility(View.VISIBLE);
     }
 
@@ -320,7 +266,7 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
     }
 
     @Override
-    public void onItemClicked(View v, QuestionItem questionItem) {
+    public void onItemClicked(View v, AnswerItem questionItem) {
         if (presenter != null && questionItem != null) {
             presenter.onItemClicked(questionItem);
         }

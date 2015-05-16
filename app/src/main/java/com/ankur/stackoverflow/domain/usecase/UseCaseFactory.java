@@ -12,4 +12,9 @@ public class UseCaseFactory {
         return new GetQuestionItemsUseCase(RepositoryFactory.getQuestionRepositoryInstance(),
                 ExecutorFactory.getThreadExecutorInstance());
     }
+
+    public static GetItemsUseCase newGetAnswersItemUseCaseInstance() {
+        return new GetAnswerItemsUseCase(RepositoryFactory.getQuestionRepositoryInstance(),
+                ExecutorFactory.getThreadExecutorInstance());
+    }
 }

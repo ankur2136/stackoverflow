@@ -8,6 +8,7 @@ import com.ankur.stackoverflow.R;
 import com.ankur.stackoverflow.common.NavigationUtils;
 import com.ankur.stackoverflow.common.ViewUtils;
 import com.ankur.stackoverflow.domain.dto.QuestionItem;
+import com.ankur.stackoverflow.presentation.fragment.AnswersListFragment;
 import com.ankur.stackoverflow.presentation.fragment.UniSearchFragment;
 import com.ankur.stackoverflow.presentation.view.BaseView;
 import com.ankur.stackoverflow.utils.LogUtils;
@@ -77,6 +78,10 @@ public class HomeActivity extends BaseActivity implements BaseView.InteractionLi
         if (item instanceof QuestionItem) {
             QuestionItem questionItem = (QuestionItem) item;
             LogUtils.debugLog(LOG_TAG, questionItem.mTitle);
+
+            Bundle bundle = AnswersListFragment.getAnswerItemBundle(questionItem);
+            NavigationUtils.startFragment(this.getSupportFragmentManager(), R.id.fl_fragment_container,
+                    AnswersListFragment.newInstance(bundle), true, NavigationUtils.SLIDE_FROM_RIGHT);
         }
     }
 }

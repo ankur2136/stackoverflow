@@ -6,7 +6,9 @@ import com.ankur.stackoverflow.MyApplication;
 import com.ankur.stackoverflow.data.datasource.CloudStore;
 import com.ankur.stackoverflow.data.datasource.DatabaseItemSource;
 import com.ankur.stackoverflow.data.datasource.ItemDataSource;
+import com.ankur.stackoverflow.domain.dto.AnswerItem;
 import com.ankur.stackoverflow.domain.dto.QuestionItem;
+import com.ankur.stackoverflow.utils.LogUtils;
 
 public class ItemRepository implements ContentRepository<QuestionItem, String> {
 
@@ -24,6 +26,12 @@ public class ItemRepository implements ContentRepository<QuestionItem, String> {
     @Override
     public void setItem(QuestionItem question) {
 
+    }
+
+    @Override
+    public List<AnswerItem> getAnswersForQuestion(int questionId) {
+        LogUtils.debugLog(LOG_TAG, questionId + "");
+        return null;
     }
 
     @Override

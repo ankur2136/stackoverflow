@@ -11,7 +11,7 @@ import com.ankur.stackoverflow.utils.LogUtils;
 
 import java.util.Collection;
 
-public class QuestionItemPresenter<I> extends Presenter<CollectionView<I>> {
+public class ItemPresenter<I> extends Presenter<CollectionView<I>> {
 
     private static final String LOG_TAG  = "ITEM_PRESENTER";
 
@@ -21,7 +21,7 @@ public class QuestionItemPresenter<I> extends Presenter<CollectionView<I>> {
 
     private boolean             isPaused = true;
 
-    public QuestionItemPresenter(GetItemsUseCase<I> getItemsUseCase) {
+    public ItemPresenter(GetItemsUseCase<I> getItemsUseCase) {
         mGetItemsUseCase = getItemsUseCase;
         mGetCollectionCallback = new Callback<Collection<I>>() {
             @Override
