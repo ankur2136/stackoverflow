@@ -28,6 +28,6 @@ public class ItemRepository implements ContentRepository<QuestionItem, String> {
 
     @Override
     public List<QuestionItem> getSearchResult(String query) {
-        return null;
+        return mCloud.getSearchResults(query);
     }
 }

@@ -42,7 +42,8 @@ public class GetQuestionItemsUseCase extends BaseUseCase implements GetItemsUseC
     @Override
     public void run() {
         try {
-            notifyOnSuccess(null);
+            List<QuestionItem> result = mContentRepository.getSearchResult(mQueryText);
+            notifyOnSuccess(result);
         } catch (Exception e) {
             LogUtils.errorLog(LOG_TAG, "Exception on background thread... ", e);
             notifyOnError(e);

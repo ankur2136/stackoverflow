@@ -74,7 +74,7 @@ public abstract class Tables {
         static final String TABLE_NAME           = "Collections";
         static final String COLUMN_ID            = "id";
         static final String COLUMN_COLLECTION_ID = "collection_id";
-        static final String COLUMN_MEDIA_ID      = "media_id";
+        static final String COLUMN_MAPPED_ID     = "mapped_id";
         static final String COLUMN_RANK          = "rank";
 
         public static String getCreateQuery() {
@@ -82,11 +82,11 @@ public abstract class Tables {
             query.append(" (");
             query.append(COLUMN_ID + " INTEGER NOT NULL,");
             query.append(COLUMN_COLLECTION_ID + " text, ");
-            query.append(COLUMN_MEDIA_ID + " text, ");
+            query.append(COLUMN_MAPPED_ID + " text, ");
             query.append(COLUMN_RANK + " INTEGER, ");
             query.append("PRIMARY KEY (");
             query.append(COLUMN_COLLECTION_ID + ", ");
-            query.append(COLUMN_MEDIA_ID);
+            query.append(COLUMN_MAPPED_ID);
             query.append(")");
             query.append(")");
             return query.toString();

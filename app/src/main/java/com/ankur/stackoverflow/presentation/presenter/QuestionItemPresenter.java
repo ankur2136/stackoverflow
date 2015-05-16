@@ -9,21 +9,23 @@ import com.ankur.stackoverflow.executor.ExecutorFactory;
 import com.ankur.stackoverflow.presentation.view.CollectionView;
 import com.ankur.stackoverflow.utils.LogUtils;
 
-public class QuestionItemPresenter<I> extends Presenter<CollectionView> {
+import java.util.Collection;
+
+public class QuestionItemPresenter<I> extends Presenter<CollectionView<I>> {
 
     private static final String LOG_TAG  = "ITEM_PRESENTER";
 
     private GetItemsUseCase<I>  mGetItemsUseCase;
 
-    private Callback<I>         mGetCollectionCallback;
+    private Callback            mGetCollectionCallback;
 
     private boolean             isPaused = true;
 
     public QuestionItemPresenter(GetItemsUseCase<I> getItemsUseCase) {
         mGetItemsUseCase = getItemsUseCase;
-        mGetCollectionCallback = new Callback<I>() {
+        mGetCollectionCallback = new Callback<Collection<I>>() {
             @Override
-            public void onSuccess(I item) {
+            public void onSuccess(Collection<I> item) {
                 handleItemUpdate(item);
             }
 
@@ -37,7 +39,7 @@ public class QuestionItemPresenter<I> extends Presenter<CollectionView> {
     /**
      * Handles the collection fetched
      */
-    private void handleItemUpdate(I item) {
+    private void handleItemUpdate(Collection<I> item) {
         hideViewLoading();
         showItemInView(item);
     }
@@ -82,11 +84,11 @@ public class QuestionItemPresenter<I> extends Presenter<CollectionView> {
                 true, true);
     }
 
-    void showItemInView(I item) {
+    void showItemInView(Collection<I> item) {
         if (isPaused) {
             return;
         }
-        getView().renderItem(item);
+        getView().renderCollection(item);
     }
 
     private void showViewLoading() {

@@ -2,6 +2,7 @@ package com.ankur.stackoverflow.data.datasource;
 
 import com.ankur.stackoverflow.domain.dto.QuestionItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CloudMediaStore implements ItemDataSource<QuestionItem> {
@@ -10,6 +11,14 @@ public class CloudMediaStore implements ItemDataSource<QuestionItem> {
 
     @Override
     public List<QuestionItem> getSearchResults(String query) {
-        return null;
+        QuestionItem dummy = new QuestionItem();
+        dummy.mQuestionId = 1;
+        dummy.mTitle   = "test";
+        dummy.mLink = "google.com";
+
+        List<QuestionItem> results = new ArrayList<>();
+        results.add(dummy);
+
+        return results;
     }
 }
