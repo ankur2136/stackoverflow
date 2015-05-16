@@ -7,10 +7,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.browse.MediaBrowser;
 import android.text.TextUtils;
 
 import com.ankur.stackoverflow.domain.dto.AnswerItem;
 import com.ankur.stackoverflow.domain.dto.QuestionItem;
+import com.ankur.stackoverflow.domain.dto.UserInfo;
 import com.ankur.stackoverflow.utils.LogUtils;
 
 public class ItemDataSource implements IItemDataSource {
@@ -138,8 +140,74 @@ public class ItemDataSource implements IItemDataSource {
     public List<QuestionItem> getSearchResults(String input) {
         SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
         List<QuestionItem> searchResults = new ArrayList<>();
+        String searchSubQuery = "SELECT DISTINCT (" + Tables.CollectionTable.COLUMN_MAPPED_ID + ") FROM "
+                + Tables.CollectionTable.TABLE_NAME + " WHERE " + Tables.CollectionTable.COLUMN_COLLECTION_ID
+                + " LIKE " + "\"" + getSearchKey(input) + "\"";
 
+        String searchQuery = "SELECT * FROM " + Tables.QuestionTable.TABLE_NAME + " x INNER JOIN (" + searchSubQuery
+                + ") y ON x." + Tables.QuestionTable.COLUMN_QUESTION_ID + "=y."
+                + Tables.CollectionTable.COLUMN_MAPPED_ID;
+
+        Cursor cursor;
+        try {
+            cursor = db.rawQuery(searchQuery, null);
+        } catch (Exception e) {
+            return null;
+        }
+
+        if ((cursor == null) || (!cursor.moveToFirst())) {
+            LogUtils.errorLog(LOG_TAG, "Items not found for input search text :: " + input);
+        } else {
+            searchResults = getQuestionItemFromCursor(cursor);
+        }
         return searchResults;
+    }
+
+    private List<QuestionItem> getQuestionItemFromCursor(Cursor cursor) {
+        List<QuestionItem> questionItems = new ArrayList<>();
+        int ownerIdColumn = cursor.getColumnIndex(Tables.QuestionTable.COLUMN_OWNER_ID);
+        int ownerNameColumn = cursor.getColumnIndex(Tables.QuestionTable.COLUMN_OWNER_NAME);
+        int isAnsweredColumn = cursor.getColumnIndex(Tables.QuestionTable.COLUMN_IS_ANSWERED);
+        int viewCountColumn = cursor.getColumnIndex(Tables.QuestionTable.COLUMN_VIEW_COUNT);
+        int answerCountColumn = cursor.getColumnIndex(Tables.QuestionTable.COLUMN_ANSWER_COUNT);
+        int scoreColumn = cursor.getColumnIndex(Tables.QuestionTable.COLUMN_SCORE);
+        int lastActivityDateColumn = cursor.getColumnIndex(Tables.QuestionTable.COLUMN_LAST_ACTIVITY_DATE);
+        int creationDateColumn = cursor.getColumnIndex(Tables.QuestionTable.COLUMN_CREATION_DATE);
+        int questionIDColumn = cursor.getColumnIndex(Tables.QuestionTable.COLUMN_QUESTION_ID);
+        int linkColumn = cursor.getColumnIndex(Tables.QuestionTable.COLUMN_LINK);
+        int titleColumn = cursor.getColumnIndex(Tables.QuestionTable.COLUMN_TITLE);
+
+        do {
+            Integer id = cursor.getInt(ownerIdColumn);
+            String name = cursor.getString(ownerNameColumn);
+            Integer isAnswered = cursor.getInt(isAnsweredColumn);
+            Integer viewCount = cursor.getInt(viewCountColumn);
+            Integer answerCount = cursor.getInt(answerCountColumn);
+            Integer score = cursor.getInt(scoreColumn);
+            Long lastActivityDate = cursor.getLong(lastActivityDateColumn);
+            Long creationDate = cursor.getLong(creationDateColumn);
+            int questionID = cursor.getInt(questionIDColumn);
+            String link = cursor.getString(linkColumn);
+            String title = cursor.getString(titleColumn);
+
+            QuestionItem item = new QuestionItem();
+            item.mOwnerInfo = new UserInfo();
+            item.mOwnerInfo.mUserId = id;
+            item.mOwnerInfo.mDisplayName = name;
+            item.mIsAnswered = (isAnswered == 1);
+            item.mViewCount = viewCount;
+            item.mAnswerCount = answerCount;
+            item.mScore = score;
+            item.mLastActivityDate = lastActivityDate;
+            item.mCreationDate = creationDate;
+            item.mQuestionId = questionID;
+            item.mLink = link;
+            item.mTitle = title;
+
+            questionItems.add(item);
+        } while (cursor.moveToNext());
+
+        return questionItems;
     }
 
     @Override
