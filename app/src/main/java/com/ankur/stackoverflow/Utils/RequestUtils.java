@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.ankur.stackoverflow.common.ApiUtils;
 import com.ankur.stackoverflow.constants.ApiConstants;
+import com.ankur.stackoverflow.data.entity.AnswersResponse;
 import com.ankur.stackoverflow.data.entity.SearchResponse;
 import com.ankur.stackoverflow.domain.dto.AnswerItem;
 import com.ankur.stackoverflow.domain.dto.QuestionItem;
@@ -36,11 +37,11 @@ public class RequestUtils extends ApiUtils {
     public static List<AnswerItem> getAnswersListForQuestion(Context context, Integer questionId) {
         String url = ApiConstants.getAnswerUrl(questionId);
         final ResultWrapper resultWrapper = new ResultWrapper();
-        makeSyncGetJsonRequest(new SearchResponse(), context, url, 10000, new ApiResponseListener<SearchResponse>() {
+        makeSyncGetJsonRequest(new AnswersResponse(), context, url, 10000, new ApiResponseListener<AnswersResponse>() {
             @Override
-            public void onResponse(SearchResponse searchResponse) {
+            public void onResponse(AnswersResponse response) {
                 LogUtils.debugLog(LOG_TAG, "Results received");
-                resultWrapper.setResult(searchResponse.getSearchResults());
+                resultWrapper.setResult(response.getResult());
             }
 
             @Override
