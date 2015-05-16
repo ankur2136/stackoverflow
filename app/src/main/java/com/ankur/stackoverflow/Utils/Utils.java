@@ -193,20 +193,6 @@ public class Utils {
         return span;
     }
 
-    public static String inputStreamToString(ByteArrayInputStream bais) throws IOException {
-
-        GZIPInputStream gzis = new GZIPInputStream(bais);
-        InputStreamReader reader = new InputStreamReader(gzis);
-        BufferedReader in = new BufferedReader(reader);
-
-        String outString = "", readed;
-        while ((readed = in.readLine()) != null) {
-            outString += readed;
-
-        }
-        return outString;
-    }
-
     public static <T> T fromJsonObject(JSONObject jsonObject, Object object) throws Exception {
         T obj = null;
         if (object instanceof JSONObject) {

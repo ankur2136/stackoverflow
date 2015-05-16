@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionItem implements Serializable, ParsingObject {
@@ -33,6 +34,7 @@ public class QuestionItem implements Serializable, ParsingObject {
         }
 
         JSONArray tags = obj.getJSONArray(ApiConstants.Item.TAGS);
+        mTags = new ArrayList<>();
         if (tags != null) {
             for (int i = 0; i < tags.length(); i++) {
                 String temp = tags.optString(i);
@@ -41,6 +43,7 @@ public class QuestionItem implements Serializable, ParsingObject {
         }
 
         JSONObject ownerInfo = obj.optJSONObject(ApiConstants.Item.OWNER);
+        mOwnerInfo = new UserInfo();
         if (ownerInfo != null) {
             mOwnerInfo = (new UserInfo()).fromJsonObject(ownerInfo);
         }

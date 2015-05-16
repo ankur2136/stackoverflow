@@ -28,7 +28,7 @@ public class ApiConstants {
     }
 
     public enum UserType {
-        UNREGISTERED(0), REGISTERED(1), MODERATOR(2), DOES_NOT_EXIST(3);
+        unregistered(0), registered(1), moderator(2), does_not_exist(3);
 
         private final int mValue;
 
