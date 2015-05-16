@@ -3,7 +3,7 @@ package com.ankur.stackoverflow.data.respository;
 import java.util.List;
 
 import com.ankur.stackoverflow.MyApplication;
-import com.ankur.stackoverflow.data.datasource.CloudMediaStore;
+import com.ankur.stackoverflow.data.datasource.CloudStore;
 import com.ankur.stackoverflow.data.datasource.DatabaseItemSource;
 import com.ankur.stackoverflow.data.datasource.ItemDataSource;
 import com.ankur.stackoverflow.domain.dto.QuestionItem;
@@ -14,7 +14,7 @@ public class ItemRepository implements ContentRepository<QuestionItem, String> {
 
     ItemDataSource mDatabase = new DatabaseItemSource(MyApplication.getMyApplicationContext());
 
-    ItemDataSource mCloud    = new CloudMediaStore();
+    ItemDataSource mCloud    = new CloudStore();
 
     @Override
     public void removeItems(List<QuestionItem> questionItems) {
