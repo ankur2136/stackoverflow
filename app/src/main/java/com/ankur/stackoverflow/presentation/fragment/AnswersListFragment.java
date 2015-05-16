@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -186,6 +187,7 @@ public class AnswersListFragment extends PresenterFragment<ItemPresenter<AnswerI
         mProgressView = (RelativeLayout) view.findViewById(R.id.rl_progress);
         mRetryView = (RelativeLayout) view.findViewById(R.id.rl_retry);
         mRetry = (Button) view.findViewById(R.id.bt_retry);
+        getmActivity().getSupportActionBar().hide();
     }
 
     private void bindViews() {
