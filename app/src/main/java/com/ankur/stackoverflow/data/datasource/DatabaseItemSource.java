@@ -3,6 +3,7 @@ package com.ankur.stackoverflow.data.datasource;
 import android.content.Context;
 
 import com.ankur.stackoverflow.data.datasource.database.IItemDataSource;
+import com.ankur.stackoverflow.domain.dto.AnswerItem;
 import com.ankur.stackoverflow.domain.dto.QuestionItem;
 
 import java.util.List;
@@ -18,6 +19,11 @@ public class DatabaseItemSource implements ItemDataSource<QuestionItem> {
 
     @Override
     public List<QuestionItem> getSearchResults(String query) {
+        return null;
+    }
+
+    @Override
+    public List<AnswerItem> getAnswersForQuestion(Integer query) {
         return null;
     }
 }

@@ -61,6 +61,16 @@ public class ApiConstants {
         }
     }
 
+    public static String getAnswerUrl(Integer questionId) {
+        return getAnswerUrl(questionId, 1, 20);
+    }
+
+    public static String getAnswerUrl(Integer questionId, int page, int pageSize) {
+        String url = "https://api.stackexchange.com/2.2/questions/" + questionId + " /answers?page=" + page
+                + "&pagesize=" + pageSize + "&order=desc&sort=activity&site=stackoverflow";
+        return url;
+    }
+
     public static String getSearchUrl(String query) {
         return getSearchUrl(query, 1, 20);
     }

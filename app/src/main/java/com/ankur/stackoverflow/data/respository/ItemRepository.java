@@ -31,7 +31,7 @@ public class ItemRepository implements ContentRepository<QuestionItem, String> {
     @Override
     public List<AnswerItem> getAnswersForQuestion(int questionId) {
         LogUtils.debugLog(LOG_TAG, questionId + "");
-        return null;
+        return mCloud.getAnswersForQuestion(questionId);
     }
 
     @Override

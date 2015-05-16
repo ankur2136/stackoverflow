@@ -3,7 +3,6 @@ package com.ankur.stackoverflow.domain.usecase;
 import com.ankur.stackoverflow.common.QueryParams;
 import com.ankur.stackoverflow.data.respository.ContentRepository;
 import com.ankur.stackoverflow.domain.dto.AnswerItem;
-import com.ankur.stackoverflow.domain.dto.QuestionItem;
 import com.ankur.stackoverflow.domain.interactor.GetItemsUseCase;
 import com.ankur.stackoverflow.executor.PostExecutionThread;
 import com.ankur.stackoverflow.executor.ThreadExecutor;
@@ -43,7 +42,7 @@ public class GetAnswerItemsUseCase extends BaseUseCase implements GetItemsUseCas
     @Override
     public void run() {
         try {
-            List<QuestionItem> result = mContentRepository.getSearchResult(mQuestionId);
+            List<AnswerItem> result = mContentRepository.getAnswersForQuestion(mQuestionId);
             notifyOnSuccess(result);
         } catch (Exception e) {
             LogUtils.errorLog(LOG_TAG, "Exception on background thread... ", e);
