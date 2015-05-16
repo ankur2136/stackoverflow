@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +89,7 @@ public class AnswerListAdapter extends BaseAdapter {
         ViewHolder resultViewHolder;
 
         if (convertView == null) {
-            convertView = mLayoutInflater.inflate(R.layout.search_result_row_item, parent, false);
+            convertView = mLayoutInflater.inflate(R.layout.answer_row_item, parent, false);
         }
 
         if (convertView.getTag() == null) {
@@ -113,27 +114,27 @@ public class AnswerListAdapter extends BaseAdapter {
 
     public static class ViewHolder {
 
-        TextView votes;
-        TextView answers;
-        TextView views;
-        TextView title;
-        TextView subtitle;
+        TextView upVotes;
+        TextView downVotes;
+        TextView isAccepted;
+        TextView body;
+        TextView author;
         int      position = -1;
 
         public void instantiate(View view) {
-            votes = (TextView) view.findViewById(R.id.tv_votes);
-            answers = (TextView) view.findViewById(R.id.tv_answers);
-            views = (TextView) view.findViewById(R.id.tv_views);
-            title = (TextView) view.findViewById(R.id.tv_title);
-            subtitle = (TextView) view.findViewById(R.id.tv_subtitle);
+            upVotes = (TextView) view.findViewById(R.id.tv_upvotes);
+            downVotes = (TextView) view.findViewById(R.id.tv_downvotes);
+            isAccepted = (TextView) view.findViewById(R.id.tv_accepted);
+            body = (TextView) view.findViewById(R.id.tv_body);
+            author = (TextView) view.findViewById(R.id.tv_author);
         }
 
         public void bindViews(AnswerItem item) {
-            ViewUtils.setupTextView(votes, item.mUpVote.toString());
-            ViewUtils.setupTextView(answers, item.mDownVote.toString());
-            ViewUtils.setupTextView(views, item.mScore.toString());
-            ViewUtils.setupTextView(title, item.mBody);
-            ViewUtils.setupTextView(subtitle, item.mOwnerInfo.mDisplayName);
+            ViewUtils.setupTextView(upVotes, item.mUpVote.toString());
+            ViewUtils.setupTextView(downVotes, item.mDownVote.toString());
+            ViewUtils.setupTextView(isAccepted, item.mIsAccepted + "");
+            ViewUtils.setupTextView(body, Html.fromHtml(item.mBody));
+            ViewUtils.setupTextView(author, item.mOwnerInfo.mDisplayName);
         }
 
         public void setPosition(int pos) {
