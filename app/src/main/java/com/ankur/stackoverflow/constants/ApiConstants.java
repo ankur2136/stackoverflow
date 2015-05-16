@@ -1,5 +1,10 @@
 package com.ankur.stackoverflow.constants;
 
+import com.ankur.stackoverflow.utils.LogUtils;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class ApiConstants {
 
     public interface Item {
@@ -41,8 +46,19 @@ public class ApiConstants {
         }
     }
 
+
     public static String getSearchUrl(String query) {
-        String url = "https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=" + query +"&site=stackoverflow";
+        return getSearchUrl(query, 1, 20);
+    }
+
+    public static String getSearchUrl(String query, int page, int pageSize) {
+
+        try {
+            query = query == null ? null : URLEncoder.encode(query, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            //do nothing
+        }
+        String url = "https://api.stackexchange.com/2.2/search?page=" + page + "&pagesize=" + pageSize+ "&order=desc&sort=activity&intitle=" + query +"&site=stackoverflow";
         return url;
     }
 
