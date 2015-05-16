@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,6 +136,7 @@ public class AnswerListAdapter extends BaseAdapter {
             ViewUtils.setupTextView(isAccepted, item.mIsAccepted + "");
             ViewUtils.setupTextView(body, Html.fromHtml(item.mBody));
             ViewUtils.setupTextView(author, item.mOwnerInfo.mDisplayName);
+            body.setMovementMethod(LinkMovementMethod.getInstance());
         }
 
         public void setPosition(int pos) {
