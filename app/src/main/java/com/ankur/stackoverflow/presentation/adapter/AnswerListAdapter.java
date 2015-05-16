@@ -133,7 +133,11 @@ public class AnswerListAdapter extends BaseAdapter {
         public void bindViews(AnswerItem item) {
             ViewUtils.setupTextView(upVotes, item.mUpVote.toString());
             ViewUtils.setupTextView(downVotes, item.mDownVote.toString());
-            ViewUtils.setupTextView(isAccepted, item.mIsAccepted + "");
+
+            if (item.mIsAccepted) {
+                ViewUtils.setupTextView(isAccepted, "Accepted Answer");
+            }
+
             ViewUtils.setupTextView(body, Html.fromHtml(item.mBody));
             ViewUtils.setupTextView(author, item.mOwnerInfo.mDisplayName);
             body.setMovementMethod(LinkMovementMethod.getInstance());

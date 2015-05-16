@@ -3,116 +3,88 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/ll_list">
+
+    <TextView
+        android:id="@+id/tv_body"
+        android:layout_weight="1"
+        android:autoLink="web"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:ellipsize="end"
+        android:textIsSelectable="false"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
 
     <LinearLayout
-        android:id="@+id/ll_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:descendantFocusability="blocksDescendants"
-        android:orientation="horizontal">
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_upvotes"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textIsSelectable="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/tv_upvotes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textIsSelectable="false"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textIsSelectable="false"
+            android:text=" Up | "
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textIsSelectable="false"
-                android:text="Up Votes"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_downvotes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textIsSelectable="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/tv_downvotes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textIsSelectable="false"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textIsSelectable="false"
+            android:text=" Down | "
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textIsSelectable="false"
-                android:text="Down Votes"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
+        <TextView
+            android:id="@+id/tv_accepted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textIsSelectable="false"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/tv_accepted"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textIsSelectable="false"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textIsSelectable="false"
-                android:text="Is Accepted"
-                android:textColor="@android:color/black"
-                android:textSize="12sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_gravity="center_vertical"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tv_body"
-                android:layout_weight="1"
-                android:autoLink="web"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:ellipsize="end"
-                android:textIsSelectable="false"
-                android:textColor="@android:color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tv_author"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:lines="1"
-                android:textIsSelectable="false"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_author"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textIsSelectable="false"
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -121,4 +93,5 @@
         android:layout_height="2dp"
         android:layout_margin="8dp"
         android:src="#000000" />
+
 </LinearLayout>
