@@ -2,7 +2,6 @@ package com.ankur.stackoverflow.data.entity;
 
 import com.ankur.stackoverflow.constants.ApiConstants;
 import com.ankur.stackoverflow.domain.ParsingObject;
-import com.ankur.stackoverflow.domain.dto.QuestionItem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,9 +12,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SearchResponse implements ParsingObject, Serializable {
-    private List<QuestionItem> mQuestionItemList;
+    private List<com.ankur.stackoverflow.domain.dto.QuestionItem> mQuestionItemList;
 
-    public List<QuestionItem> getSearchResults() {
+    public List<com.ankur.stackoverflow.domain.dto.QuestionItem> getSearchResults() {
         return mQuestionItemList;
     }
     @Override
@@ -24,7 +23,7 @@ public class SearchResponse implements ParsingObject, Serializable {
             throw new JSONException("JSON is null");
         }
         this.mQuestionItemList = new ArrayList<>();
-        JSONArray itemsArray = obj.optJSONArray(ApiConstants.Item.ITEMS);
+        JSONArray itemsArray = obj.optJSONArray(ApiConstants.QuestionItem.ITEMS);
         if (itemsArray == null) {
             return this;
         }
@@ -32,7 +31,7 @@ public class SearchResponse implements ParsingObject, Serializable {
         JSONObject itemObj;
         for (int i = 0; i < itemsArray.length(); i++) {
             itemObj = itemsArray.getJSONObject(i);
-            QuestionItem questionItem = new QuestionItem();
+            com.ankur.stackoverflow.domain.dto.QuestionItem questionItem = new com.ankur.stackoverflow.domain.dto.QuestionItem();
             questionItem.fromJsonObject(itemObj);
             this.mQuestionItemList.add(questionItem);
         }
