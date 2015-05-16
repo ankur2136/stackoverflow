@@ -104,18 +104,28 @@ public class SearchResultAdapter extends BaseAdapter {
     }
 
     public static class ViewHolder {
+
+        TextView    votes;
+        TextView    answers;
+        TextView    views;
         TextView    title;
         TextView    subtitle;
         int         position = -1;
 
         public void instantiate(View view) {
+            votes = (TextView) view.findViewById(R.id.tv_votes);
+            answers = (TextView) view.findViewById(R.id.tv_answers);
+            views = (TextView) view.findViewById(R.id.tv_views);
             title = (TextView) view.findViewById(R.id.tv_title);
             subtitle = (TextView) view.findViewById(R.id.tv_subtitle);
         }
 
         public void bindViews(QuestionItem item) {
+            ViewUtils.setupTextView(votes, item.mViewCount.toString());
+            ViewUtils.setupTextView(answers, item.mAnswerCount.toString());
+            ViewUtils.setupTextView(views, item.mViewCount.toString());
             ViewUtils.setupTextView(title, item.mTitle);
-            ViewUtils.setupTextView(subtitle, item.mLink);
+            ViewUtils.setupTextView(subtitle, item.mOwnerInfo.mDisplayName);
         }
 
         public void setPosition(int pos) {

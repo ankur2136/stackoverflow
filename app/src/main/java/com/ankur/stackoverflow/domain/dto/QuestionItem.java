@@ -18,9 +18,9 @@ public class QuestionItem implements Serializable, ParsingObject {
     public List<String>  mTags;
     public UserInfo      mOwnerInfo;
     public boolean       mIsAnswered;
-    public int           mViewCount;
-    public int           mAnswerCount;
-    public int           mScore;
+    public Integer       mViewCount;
+    public Integer       mAnswerCount;
+    public Integer       mScore;
     public Long          mLastActivityDate;
     public Long          mCreationDate;
     public int           mQuestionId;
