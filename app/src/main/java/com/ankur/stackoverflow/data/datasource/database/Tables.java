@@ -36,8 +36,9 @@ public abstract class Tables {
         static final String COLUMN_TITLE              = "title";
 
         public static String[] getFullProjection() {
-            return new String[] { COLUMN_OWNER_ID, COLUMN_OWNER_NAME, COLUMN_IS_ANSWERED, COLUMN_VIEW_COUNT, COLUMN_ANSWER_COUNT,
-                    COLUMN_SCORE, COLUMN_LAST_ACTIVITY_DATE, COLUMN_CREATION_DATE, COLUMN_QUESTION_ID, COLUMN_LINK };
+            return new String[] { COLUMN_OWNER_ID, COLUMN_OWNER_NAME, COLUMN_IS_ANSWERED, COLUMN_VIEW_COUNT,
+                    COLUMN_ANSWER_COUNT, COLUMN_SCORE, COLUMN_LAST_ACTIVITY_DATE, COLUMN_CREATION_DATE,
+                    COLUMN_QUESTION_ID, COLUMN_LINK };
         }
 
         public static String getCreateQuery() {
@@ -69,6 +70,55 @@ public abstract class Tables {
 
         public static String getDropQuery() {
             return null;
+        }
+    }
+
+    public static class AnswerTable {
+        static final String TABLE_NAME                = "AnswerItems";
+        static final String COLUMN_OWNER_ID           = "owner_id";
+        static final String COLUMN_OWNER_NAME         = "owner_name";
+        static final String COLUMN_IS_ACCEPTED        = "is_accepted";
+        static final String COLUMN_UP_VOTES           = "up_votes";
+        static final String COLUMN_DOWN_VOTES         = "down_votes";
+        static final String COLUMN_SCORE              = "score";
+        static final String COLUMN_LAST_ACTIVITY_DATE = "last_activity_date";
+        static final String COLUMN_LAST_EDIT_DATE     = "last_edit_date";
+        static final String COLUMN_CREATION_DATE      = "creation_date";
+        static final String COLUMN_ANSWER_ID          = "answer_id";
+        static final String COLUMN_QUESTION_ID        = "question_id";
+        static final String COLUMN_LINK               = "link";
+        static final String COLUMN_TITLE              = "title";
+        static final String COLUMN_BODY               = "body";
+
+        public static String[] getFullProjection() {
+            return new String[] { COLUMN_OWNER_ID, COLUMN_OWNER_NAME, COLUMN_IS_ACCEPTED, COLUMN_UP_VOTES,
+                    COLUMN_DOWN_VOTES, COLUMN_SCORE, COLUMN_LAST_ACTIVITY_DATE, COLUMN_LAST_EDIT_DATE,
+                    COLUMN_CREATION_DATE, COLUMN_QUESTION_ID, COLUMN_QUESTION_ID, COLUMN_LINK, COLUMN_TITLE,
+                    COLUMN_BODY };
+        }
+
+        public static String getCreateQuery() {
+            StringBuilder query = new StringBuilder("CREATE TABLE " + TABLE_NAME);
+            query.append(" (");
+            query.append(COLUMN_QUESTION_ID + " text, ");
+            query.append(COLUMN_ANSWER_ID + " text, ");
+            query.append(COLUMN_TITLE + " text, ");
+            query.append(COLUMN_IS_ACCEPTED + " integer DEFAULT 0, ");
+            query.append(COLUMN_OWNER_ID + " integer DEFAULT 0, ");
+            query.append(COLUMN_OWNER_NAME + " text, ");
+            query.append(COLUMN_UP_VOTES + " integer DEFAULT 0, ");
+            query.append(COLUMN_DOWN_VOTES + " integer DEFAULT 0, ");
+            query.append(COLUMN_SCORE + " integer DEFAULT 0, ");
+            query.append(COLUMN_LAST_ACTIVITY_DATE + " integer DEFAULT 0, ");
+            query.append(COLUMN_LAST_EDIT_DATE + " integer DEFAULT 0, ");
+            query.append(COLUMN_CREATION_DATE + " integer DEFAULT 0, ");
+            query.append(COLUMN_LINK + " text, ");
+            query.append(COLUMN_BODY + " text, ");
+            query.append("primary key (");
+            query.append(COLUMN_ANSWER_ID);
+            query.append(")");
+            query.append(")");
+            return query.toString();
         }
     }
 

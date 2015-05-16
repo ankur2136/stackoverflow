@@ -7,7 +7,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.browse.MediaBrowser;
 import android.text.TextUtils;
 
 import com.ankur.stackoverflow.domain.dto.AnswerItem;
@@ -41,6 +40,7 @@ public class ItemDataSource implements IItemDataSource {
     public static List<String> getCreateTableQueries() {
         List<String> queries = new ArrayList<>();
         queries.add(Tables.QuestionTable.getCreateQuery());
+        queries.add(Tables.AnswerTable.getCreateQuery());
         queries.add(Tables.CollectionTable.getCreateQuery());
         return queries;
     }
@@ -65,6 +65,31 @@ public class ItemDataSource implements IItemDataSource {
         updateMapping(questionItem, query);
 
         long rowId = db.replace(Tables.QuestionTable.TABLE_NAME, null, values);
+
+        return rowId >= 0;
+    }
+
+    @Override
+    public boolean putAnswerItem(AnswerItem answerItem) {
+        SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Tables.AnswerTable.COLUMN_ANSWER_ID, answerItem.mAnswerId);
+        values.put(Tables.AnswerTable.COLUMN_QUESTION_ID, answerItem.mQuestionId);
+        values.put(Tables.AnswerTable.COLUMN_TITLE, answerItem.mTitle);
+        values.put(Tables.AnswerTable.COLUMN_BODY, answerItem.mBody);
+        values.put(Tables.AnswerTable.COLUMN_OWNER_ID, answerItem.mOwnerInfo.mUserId);
+        values.put(Tables.AnswerTable.COLUMN_OWNER_NAME, answerItem.mOwnerInfo.mDisplayName);
+        values.put(Tables.AnswerTable.COLUMN_IS_ACCEPTED, answerItem.mIsAccepted);
+        values.put(Tables.AnswerTable.COLUMN_UP_VOTES, answerItem.mUpVote);
+        values.put(Tables.AnswerTable.COLUMN_DOWN_VOTES, answerItem.mDownVote);
+        values.put(Tables.AnswerTable.COLUMN_SCORE, answerItem.mScore);
+        values.put(Tables.AnswerTable.COLUMN_LAST_ACTIVITY_DATE, answerItem.mLastActivityDate);
+        values.put(Tables.AnswerTable.COLUMN_LAST_EDIT_DATE, answerItem.mLastEditDate);
+        values.put(Tables.AnswerTable.COLUMN_CREATION_DATE, answerItem.mCreationDate);
+        values.put(Tables.AnswerTable.COLUMN_LINK, answerItem.mLink);
+
+        long rowId = db.replace(Tables.AnswerTable.TABLE_NAME, null, values);
 
         return rowId >= 0;
     }
@@ -212,7 +237,75 @@ public class ItemDataSource implements IItemDataSource {
 
     @Override
     public List<AnswerItem> getAnswersForQuestion(Integer questionID) {
-        return null;
+        SQLiteDatabase db = mDatabaseHelper.getReadableDatabase();
+        List<AnswerItem> searchResults = new ArrayList<>();
+
+        String where = Tables.AnswerTable.COLUMN_QUESTION_ID + "=?";
+        String whereArgs[] = { String.valueOf(questionID) };
+
+        Cursor cursor = db.query(Tables.AnswerTable.TABLE_NAME, Tables.AnswerTable.getFullProjection(), where,
+                whereArgs, null, null, null);
+
+        if ((cursor == null) || (!cursor.moveToFirst())) {
+            LogUtils.errorLog(LOG_TAG, "Items not found for input search text :: " + questionID);
+        } else {
+            searchResults = getAnswerItemsFromCursor(cursor);
+        }
+        return searchResults;
+    }
+
+    private List<AnswerItem> getAnswerItemsFromCursor(Cursor cursor) {
+        List<AnswerItem> answerItems = new ArrayList<>();
+
+        int ownerIdColumn = cursor.getColumnIndex(Tables.AnswerTable.COLUMN_OWNER_ID);
+        int ownerNameColumn = cursor.getColumnIndex(Tables.AnswerTable.COLUMN_OWNER_NAME);
+        int isAcceptedColumn = cursor.getColumnIndex(Tables.AnswerTable.COLUMN_IS_ACCEPTED);
+        int upVotesColumn = cursor.getColumnIndex(Tables.AnswerTable.COLUMN_UP_VOTES);
+        int downVotesColumn = cursor.getColumnIndex(Tables.AnswerTable.COLUMN_DOWN_VOTES);
+        int scoreColumn = cursor.getColumnIndex(Tables.AnswerTable.COLUMN_SCORE);
+        int lastActivityDateColumn = cursor.getColumnIndex(Tables.AnswerTable.COLUMN_LAST_ACTIVITY_DATE);
+        int lastEditDateColumn = cursor.getColumnIndex(Tables.AnswerTable.COLUMN_LAST_EDIT_DATE);
+        int creationDateColumn = cursor.getColumnIndex(Tables.AnswerTable.COLUMN_CREATION_DATE);
+        int questionIDColumn = cursor.getColumnIndex(Tables.AnswerTable.COLUMN_QUESTION_ID);
+        int linkColumn = cursor.getColumnIndex(Tables.AnswerTable.COLUMN_LINK);
+        int titleColumn = cursor.getColumnIndex(Tables.AnswerTable.COLUMN_TITLE);
+        int bodyColumn = cursor.getColumnIndex(Tables.AnswerTable.COLUMN_BODY);
+
+        do {
+            Integer id = cursor.getInt(ownerIdColumn);
+            String name = cursor.getString(ownerNameColumn);
+            Integer isAccepted = cursor.getInt(isAcceptedColumn);
+            Integer upCount = cursor.getInt(upVotesColumn);
+            Integer downCount = cursor.getInt(downVotesColumn);
+            Integer score = cursor.getInt(scoreColumn);
+            Long lastActivityDate = cursor.getLong(lastActivityDateColumn);
+            Long lastEditDate = cursor.getLong(lastEditDateColumn);
+            Long creationDate = cursor.getLong(creationDateColumn);
+            int questionID = cursor.getInt(questionIDColumn);
+            String link = cursor.getString(linkColumn);
+            String title = cursor.getString(titleColumn);
+            String body = cursor.getString(bodyColumn);
+
+            AnswerItem item = new AnswerItem();
+            item.mOwnerInfo = new UserInfo();
+            item.mOwnerInfo.mUserId = id;
+            item.mOwnerInfo.mDisplayName = name;
+            item.mIsAccepted = (isAccepted == 1);
+            item.mUpVote = upCount;
+            item.mDownVote = downCount;
+            item.mScore = score;
+            item.mLastActivityDate = lastActivityDate;
+            item.mLastEditDate = lastEditDate;
+            item.mCreationDate = creationDate;
+            item.mQuestionId = questionID;
+            item.mLink = link;
+            item.mTitle = title;
+            item.mBody = body;
+
+            answerItems.add(item);
+        } while (cursor.moveToNext());
+
+        return answerItems;
     }
 
     private String appendWildcard(String query) {

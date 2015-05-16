@@ -32,7 +32,16 @@ public class ItemRepository implements ContentRepository<QuestionItem, String> {
     @Override
     public List<AnswerItem> getAnswersForQuestion(int questionId) {
         LogUtils.debugLog(LOG_TAG, questionId + "");
-        return mCloud.getAnswersForQuestion(questionId);
+        List<AnswerItem> resultsFromDB = mDatabase.getAnswersForQuestion(questionId);
+        if (CollectionUtils.isEmpty(resultsFromDB)) {
+            List<AnswerItem> result = mCloud.getAnswersForQuestion(questionId);
+
+            for (AnswerItem item : result) {
+                mDatabase.putAnswerItem(item);
+            }
+            return result;
+        }
+        return resultsFromDB;
     }
 
     @Override
@@ -45,8 +54,7 @@ public class ItemRepository implements ContentRepository<QuestionItem, String> {
                 setItem(item, query);
             }
             return result;
-        } else {
-            return resultFromDB;
         }
+        return resultFromDB;
     }
 }

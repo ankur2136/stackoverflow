@@ -13,4 +13,6 @@ public interface IItemDataSource {
     List<AnswerItem> getAnswersForQuestion(Integer questionID);
 
     boolean putQuestionItem(QuestionItem questionItem, String query);
+
+    boolean putAnswerItem(AnswerItem questionItem);
 }

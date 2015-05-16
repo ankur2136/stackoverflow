@@ -30,4 +30,9 @@ public class CloudStore implements ItemDataSource<QuestionItem> {
     public boolean putQuestionItem(QuestionItem item, String Query) {
         return false;
     }
+
+    @Override
+    public boolean putAnswerItem(AnswerItem item) {
+        return false;
+    }
 }

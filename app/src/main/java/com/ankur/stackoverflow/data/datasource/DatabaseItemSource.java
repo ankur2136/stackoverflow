@@ -30,4 +30,9 @@ public class DatabaseItemSource implements ItemDataSource<QuestionItem> {
     public boolean putQuestionItem(QuestionItem item, String query) {
         return mMediaDataSource.putQuestionItem(item, query);
     }
+
+    @Override
+    public boolean putAnswerItem(AnswerItem item) {
+        return mMediaDataSource.putAnswerItem(item);
+    }
 }
