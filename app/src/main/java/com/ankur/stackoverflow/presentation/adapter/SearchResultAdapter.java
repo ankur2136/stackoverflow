@@ -99,6 +99,14 @@ public class SearchResultAdapter extends BaseAdapter {
             resultViewHolder = (ViewHolder) convertView.getTag();
         }
 
+        final QuestionItem questionItem = mQuestions.get(position);
+        convertView.findViewById(R.id.ll_list).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnItemClickListener.onItemClicked(v, questionItem);
+            }
+        });
+
         resultViewHolder.bindViews(result);
         return convertView;
     }
