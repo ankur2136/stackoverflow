@@ -9,6 +9,7 @@ import com.ankur.stackoverflow.jobs.JobManagerLogger;
 import com.ankur.stackoverflow.utils.NetworkConnectivityListener;
 import com.ankur.stackoverflow.utils.NetworkUtils;
 import com.ankur.stackoverflow.utils.SharedPrefs;
+import com.ankur.stackoverflow.utils.VolleyLib;
 import com.path.android.jobqueue.JobManager;
 
 import com.path.android.jobqueue.config.Configuration;
@@ -63,6 +64,7 @@ public class MyApplication extends Application implements NetworkConnectivityLis
     public void onCreate() {
         super.onCreate();
         sDialogsOnScreen = new HashSet<>();
+        VolleyLib.init(this);
         SharedPrefs.getInstance().init(this);
         configureJobManagers();
     }
