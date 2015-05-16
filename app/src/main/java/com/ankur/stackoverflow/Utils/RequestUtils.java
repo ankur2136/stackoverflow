@@ -46,7 +46,7 @@ public class RequestUtils extends ApiUtils {
 
             @Override
             public void onError(Exception exception) {
-                LogUtils.errorLog(LOG_TAG, "Failed to fetch top page. API returned: " + exception);
+                LogUtils.errorLog(LOG_TAG, "Failed to fetch page. API returned: " + exception);
             }
 
         });
