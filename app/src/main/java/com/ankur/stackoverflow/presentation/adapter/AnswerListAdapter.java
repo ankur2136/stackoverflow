@@ -3,10 +3,12 @@ package com.ankur.stackoverflow.presentation.adapter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,6 +140,10 @@ public class AnswerListAdapter extends BaseAdapter {
                 ViewUtils.setupTextView(isAccepted, "Accepted Answer");
             }
 
+            body.setAutoLinkMask(0);
+            Pattern pattern = Pattern.compile("@([A-Za-z0-9_-]+)");
+            String scheme = "http://...";
+            Linkify.addLinks(body, pattern, scheme);
             ViewUtils.setupTextView(body, Html.fromHtml(item.mBody));
             ViewUtils.setupTextView(author, item.mOwnerInfo.mDisplayName);
             body.setMovementMethod(LinkMovementMethod.getInstance());
