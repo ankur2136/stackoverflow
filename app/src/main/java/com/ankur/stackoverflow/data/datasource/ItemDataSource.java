@@ -11,4 +11,6 @@ public interface ItemDataSource<T> {
     List<QuestionItem> getSearchResults(String query);
 
     List<AnswerItem> getAnswersForQuestion(Integer query);
+
+    boolean putQuestionItem (QuestionItem item, String query);
 }

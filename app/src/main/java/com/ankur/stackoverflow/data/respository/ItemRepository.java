@@ -24,8 +24,8 @@ public class ItemRepository implements ContentRepository<QuestionItem, String> {
     }
 
     @Override
-    public void setItem(QuestionItem question) {
-
+    public void setItem(QuestionItem question, String query) {
+        mDatabase.putQuestionItem(question, query);
     }
 
     @Override
@@ -36,6 +36,11 @@ public class ItemRepository implements ContentRepository<QuestionItem, String> {
 
     @Override
     public List<QuestionItem> getSearchResult(String query) {
-        return mCloud.getSearchResults(query);
+        List<QuestionItem> result = mCloud.getSearchResults(query);
+
+        for(QuestionItem item: result) {
+            setItem(item, query);
+        }
+        return result;
     }
 }

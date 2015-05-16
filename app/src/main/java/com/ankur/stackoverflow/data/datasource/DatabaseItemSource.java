@@ -16,14 +16,18 @@ public class DatabaseItemSource implements ItemDataSource<QuestionItem> {
         mMediaDataSource = new com.ankur.stackoverflow.data.datasource.database.ItemDataSource(context);
     }
 
-
     @Override
     public List<QuestionItem> getSearchResults(String query) {
-        return null;
+        return mMediaDataSource.getSearchResults(query);
     }
 
     @Override
-    public List<AnswerItem> getAnswersForQuestion(Integer query) {
-        return null;
+    public List<AnswerItem> getAnswersForQuestion(Integer questionId) {
+        return mMediaDataSource.getAnswersForQuestion(questionId);
+    }
+
+    @Override
+    public boolean putQuestionItem(QuestionItem item, String query) {
+        return mMediaDataSource.putQuestionItem(item, query);
     }
 }

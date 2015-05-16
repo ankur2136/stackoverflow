@@ -19,7 +19,7 @@ public interface ContentRepository<T, K> {
      *
      * @param question
      */
-    void setItem(T question);
+    void setItem(T question, String Query);
 
     /**
      * Get question collection item by question type. Collection is present as child

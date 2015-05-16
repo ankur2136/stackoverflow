@@ -25,4 +25,9 @@ public class CloudStore implements ItemDataSource<QuestionItem> {
         results = RequestUtils.getAnswersListForQuestion(MyApplication.getMyApplicationContext(), questionId);
         return results;
     }
+
+    @Override
+    public boolean putQuestionItem(QuestionItem item, String Query) {
+        return false;
+    }
 }

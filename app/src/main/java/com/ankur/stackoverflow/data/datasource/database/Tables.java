@@ -24,6 +24,7 @@ public abstract class Tables {
     public static class QuestionTable {
         static final String TABLE_NAME                = "QuestionItem";
         static final String COLUMN_OWNER_ID           = "owner_id";
+        static final String COLUMN_OWNER_NAME         = "owner_name";
         static final String COLUMN_IS_ANSWERED        = "is_answered";
         static final String COLUMN_VIEW_COUNT         = "view_count";
         static final String COLUMN_ANSWER_COUNT       = "answer_count";
@@ -35,7 +36,7 @@ public abstract class Tables {
         static final String COLUMN_TITLE              = "title";
 
         public static String[] getFullProjection() {
-            return new String[] { COLUMN_OWNER_ID, COLUMN_IS_ANSWERED, COLUMN_VIEW_COUNT, COLUMN_ANSWER_COUNT,
+            return new String[] { COLUMN_OWNER_ID, COLUMN_OWNER_NAME, COLUMN_IS_ANSWERED, COLUMN_VIEW_COUNT, COLUMN_ANSWER_COUNT,
                     COLUMN_SCORE, COLUMN_LAST_ACTIVITY_DATE, COLUMN_CREATION_DATE, COLUMN_QUESTION_ID, COLUMN_LINK };
         }
 
@@ -45,6 +46,7 @@ public abstract class Tables {
             query.append(COLUMN_QUESTION_ID + " text, ");
             query.append(COLUMN_TITLE + " text, ");
             query.append(COLUMN_OWNER_ID + " integer DEFAULT 0, ");
+            query.append(COLUMN_OWNER_NAME + " text, ");
             query.append(COLUMN_IS_ANSWERED + " text, ");
             query.append(COLUMN_VIEW_COUNT + " integer DEFAULT 0, ");
             query.append(COLUMN_ANSWER_COUNT + " integer DEFAULT 0, ");
