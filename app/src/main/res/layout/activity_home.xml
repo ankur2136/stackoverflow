@@ -20,10 +20,12 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/tb_action_bar">
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_home_pager"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="Welcome to StackOverflow!!"/>
     </FrameLayout>
 
     <include

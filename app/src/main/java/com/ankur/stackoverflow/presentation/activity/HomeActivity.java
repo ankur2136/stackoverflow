@@ -48,7 +48,7 @@ public class HomeActivity extends BaseActivity implements BaseView.InteractionLi
         switch (id) {
         case R.id.search:
             NavigationUtils.startFragment(this.getSupportFragmentManager(), R.id.fl_fragment_container,
-                    UniSearchFragment.newInstance(), true, NavigationUtils.NO_ANIMATION);
+                    UniSearchFragment.newInstance(), true, NavigationUtils.SLIDE_FROM_RIGHT);
             break;
         case R.id.action_dump:
             try {
