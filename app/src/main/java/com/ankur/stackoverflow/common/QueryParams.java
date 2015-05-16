@@ -27,7 +27,7 @@ public class QueryParams extends HashMap {
     }
 
     public QueryParams setText(String id) {
-        put(QueryKeys.ID, id);
+        put(QueryKeys.TEXT, id);
         return this;
     }
 
@@ -36,7 +36,7 @@ public class QueryParams extends HashMap {
     }
 
     public QueryParams setTAG(String id) {
-        put(QueryKeys.ID, id);
+        put(QueryKeys.TAG, id);
         return this;
     }
 

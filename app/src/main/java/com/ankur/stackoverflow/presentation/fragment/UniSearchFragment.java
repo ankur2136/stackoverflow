@@ -134,16 +134,15 @@ public class UniSearchFragment extends PresenterFragment<QuestionItemPresenter<Q
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                QueryParams queryParams = QueryParams.getNewInstance();
+                queryParams.setText(query);
+                presenter.init(queryParams);
                 LogUtils.infoLog(LOG_TAG, "Query complete: " + query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String query) {
-                QueryParams queryParams = QueryParams.getNewInstance();
-                queryParams.setText(query);
-                presenter.init(queryParams);
-                LogUtils.infoLog(LOG_TAG, "Current query: " + query);
                 return true;
             }
         });

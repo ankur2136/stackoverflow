@@ -41,4 +41,9 @@ public class ApiConstants {
         }
     }
 
+    public static String getSearchUrl(String query) {
+        String url = "https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=" + query +"&site=stackoverflow";
+        return url;
+    }
+
 }
