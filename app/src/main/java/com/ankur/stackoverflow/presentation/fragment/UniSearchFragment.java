@@ -8,6 +8,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
@@ -139,6 +140,7 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                PreferenceManager.getDefaultSharedPreferences(getContext()).edit().putString("QUERY", query).commit();
                 findResults(query);
                 return false;
             }
@@ -154,6 +156,11 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
     }
 
     private void findResults(String query) {
+        if (query == null || query.equals("")) {
+            return;
+        }
+
+        mQuery = query;
         QueryParams queryParams = QueryParams.getNewInstance();
         queryParams.setText(query);
         presenter.init(queryParams);
@@ -220,6 +227,9 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
                 mQuery = query;
                 findResults(mQuery);
             }
+        } else {
+            mQuery = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("QUERY", null);
+            findResults(mQuery);
         }
     }
 
