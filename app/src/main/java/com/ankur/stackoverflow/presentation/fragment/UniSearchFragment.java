@@ -23,6 +23,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.ankur.stackoverflow.R;
 import com.ankur.stackoverflow.common.QueryParams;
@@ -160,6 +161,9 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
             return;
         }
 
+        //Clear the previous results
+        mQuestionListAdapter.setQuestionsCollection(new ArrayList<QuestionItem>());
+
         mQuery = query;
         QueryParams queryParams = QueryParams.getNewInstance();
         queryParams.setText(query);
@@ -284,9 +288,17 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
     @Override
     public void renderCollection(Collection<QuestionItem> questionItems) {
         if (questionItems != null && mQuestionListAdapter != null) {
+            if (questionItems.size() == 0) {
+                PreferenceManager.getDefaultSharedPreferences(getContext()).edit().remove("QUERY").commit();
+                Toast.makeText(getContext(), "Sorry No results found", Toast.LENGTH_SHORT).show();
+                return;
+            }
             mQuestionListAdapter.setQuestionsCollection(questionItems);
             mQuestionListAdapter.notifyDataSetChanged();
             mQuestionListAdapter.setOnItemClickListener(this);
+        } else {
+            PreferenceManager.getDefaultSharedPreferences(getContext()).edit().remove("QUERY").commit();
+            Toast.makeText(getContext(), "Oops Something went wrong", Toast.LENGTH_SHORT).show();
         }
     }
 
