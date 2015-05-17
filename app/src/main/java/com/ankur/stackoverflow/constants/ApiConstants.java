@@ -67,7 +67,7 @@ public class ApiConstants {
 
     public static String getAnswerUrl(Integer questionId, int page, int pageSize) {
         String url = "https://api.stackexchange.com/2.2/questions/" + questionId + "/answers?page=" + page
-                + "&pagesize=" + pageSize + "&order=asc&sort=activity&site=stackoverflow&filter=withbody";
+                + "&pagesize=" + pageSize + "&order=asc&sort=activity&site=stackoverflow&filter=!b0OfNcJ.PMNTza";
         return url;
     }
 
