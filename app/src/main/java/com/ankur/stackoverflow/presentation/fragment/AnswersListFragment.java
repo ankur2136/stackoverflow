@@ -22,6 +22,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.ankur.stackoverflow.R;
 import com.ankur.stackoverflow.common.QueryParams;
@@ -149,9 +150,14 @@ public class AnswersListFragment extends PresenterFragment<ItemPresenter<AnswerI
     }
 
     private void loadMediaList() {
-        QueryParams queryParams = QueryParams.getNewInstance();
-        queryParams.setId(mQuestionItem.mQuestionId);
-        presenter.init(queryParams);
+
+        if (mQuestionItem.mAnswerCount > 0) {
+            QueryParams queryParams = QueryParams.getNewInstance();
+            queryParams.setId(mQuestionItem.mQuestionId);
+            presenter.init(queryParams);
+        } else {
+            Toast.makeText(getContext(), "No answers found for this Question", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
