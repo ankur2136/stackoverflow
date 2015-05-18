@@ -21,15 +21,11 @@ import com.ankur.stackoverflow.domain.dto.AnswerItem;
 
 public class AnswerListAdapter extends BaseAdapter {
 
-    private String               LOG_TAG = "ANSWER_RESULT_ADAPTER";
-
     private final LayoutInflater mLayoutInflater;
 
     private List<AnswerItem>     mQuestions;
 
     private OnItemClickListener  mOnItemClickListener;
-
-    private Context              mContext;
 
     public interface OnItemClickListener {
         void onItemClicked(View anchor, AnswerItem questionItem);
@@ -37,7 +33,6 @@ public class AnswerListAdapter extends BaseAdapter {
 
     public AnswerListAdapter(Context context, Collection<AnswerItem> collection) {
         validateCollection(collection);
-        mContext = context;
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mQuestions = new ArrayList<>(collection);
     }
@@ -122,7 +117,6 @@ public class AnswerListAdapter extends BaseAdapter {
         TextView isAccepted;
         TextView body;
         TextView author;
-        int      position = -1;
 
         public void instantiate(View view) {
             upVotes = (TextView) view.findViewById(R.id.tv_upvotes);
@@ -148,11 +142,6 @@ public class AnswerListAdapter extends BaseAdapter {
             ViewUtils.setupTextView(author, item.mOwnerInfo.mDisplayName);
             body.setMovementMethod(LinkMovementMethod.getInstance());
         }
-
-        public void setPosition(int pos) {
-            position = pos;
-        }
-
     }
 
 }

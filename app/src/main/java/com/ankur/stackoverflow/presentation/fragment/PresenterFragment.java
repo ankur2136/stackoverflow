@@ -51,8 +51,7 @@ public abstract class PresenterFragment<P extends BasePresenter> extends BaseFra
                     + "If you don't want to use getLayoutRes() but implement your own view for this "
                     + "fragment manually, then you have to override onCreateView();");
         } else {
-            View v = inflater.inflate(layoutRes, container, false);
-            return v;
+            return inflater.inflate(layoutRes, container, false);
         }
     }
 

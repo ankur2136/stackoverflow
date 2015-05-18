@@ -1,14 +1,11 @@
 package com.ankur.stackoverflow.presentation.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
 
-import com.ankur.stackoverflow.MyApplication;
 import com.ankur.stackoverflow.R;
 import com.ankur.stackoverflow.common.CompatUtils;
 import com.ankur.stackoverflow.utils.LogUtils;
@@ -30,72 +27,10 @@ public abstract class BaseActivity extends ActionBarActivity {
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onCreate(): " + this.getClass().getSimpleName());
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, this.getClass().getSimpleName() + " : onCreateOptionsMenu()");
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public void onStart() {
         if (LogUtils.isDebugLogEnabled())
             LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onStart(): " + this.getClass().getSimpleName());
         super.onStart();
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onNewIntent(): " + this.getClass().getSimpleName());
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onWindowFocusChanged(" + hasFocus + "): "
-                    + this.getClass().getSimpleName());
-    }
-
-    @Override
-    protected void onResume() {
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onResume(): " + this.getClass().getSimpleName());
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onPause(): " + this.getClass().getSimpleName());
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onStop(): " + this.getClass().getSimpleName());
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onDestroy(): " + this.getClass().getSimpleName());
-        super.onDestroy();
     }
 
     @Override

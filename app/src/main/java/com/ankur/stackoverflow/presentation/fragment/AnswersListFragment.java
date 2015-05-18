@@ -75,10 +75,6 @@ public class AnswersListFragment extends PresenterFragment<ItemPresenter<AnswerI
         return bundle;
     }
 
-    public static AnswersListFragment newInstance() {
-        return newInstance(null);
-    }
-
     public static AnswersListFragment newInstance(Bundle bundle) {
         AnswersListFragment fragment = new AnswersListFragment();
         if (bundle != null) {
@@ -218,22 +214,8 @@ public class AnswersListFragment extends PresenterFragment<ItemPresenter<AnswerI
     }
 
     @Override
-    public void renderItem(AnswerItem questionItem) {
-        LogUtils.debugLog(LOG_TAG, "HERE");
-    }
-
-    @Override
     public void viewItem(AnswerItem questionItem) {
         mListener.onItemClick(questionItem);
-    }
-
-    @Override
-    public void deleteItem(AnswerItem item) {
-
-    }
-
-    @Override
-    public void viewPopupWindow(View anchor, AnswerItem item) {
     }
 
     @Override
