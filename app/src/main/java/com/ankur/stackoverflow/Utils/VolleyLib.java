@@ -1,18 +1,12 @@
 package com.ankur.stackoverflow.utils;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import android.content.Context;
-import android.os.Build;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.BasicNetwork;
 import com.android.volley.toolbox.HurlStack;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.OkUrlFactory;
 
 public class VolleyLib {
 
@@ -38,12 +32,8 @@ public class VolleyLib {
     }
 
     private static RequestQueue newGeneralRequestQueue() {
-        RequestQueue queue = null;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            queue = new RequestQueue(sDiskCache, new BasicNetwork(new OkHttpStack()));
-        } else {
-            queue = new RequestQueue(sDiskCache, new BasicNetwork(new HurlStack()));
-        }
+        RequestQueue queue;
+        queue = new RequestQueue(sDiskCache, new BasicNetwork(new HurlStack()));
         queue.start();
         return queue;
     }
@@ -52,24 +42,4 @@ public class VolleyLib {
         return sGeneralRequestQueue;
     }
 
-
-    public static class OkHttpStack extends HurlStack {
-        private final OkUrlFactory okUrlFactory;
-
-        public OkHttpStack() {
-            this(new OkUrlFactory(new OkHttpClient()));
-        }
-
-        public OkHttpStack(OkUrlFactory okUrlFactory) {
-            if (okUrlFactory == null) {
-                throw new NullPointerException("Client must not be null.");
-            }
-            this.okUrlFactory = okUrlFactory;
-        }
-
-        @Override
-        protected HttpURLConnection createConnection(URL url) throws IOException {
-            return okUrlFactory.open(url);
-        }
-    }
 }
