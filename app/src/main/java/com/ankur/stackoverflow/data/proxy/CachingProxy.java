@@ -22,9 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by dhruva on 03/05/15.
- */
 public class CachingProxy implements java.lang.reflect.InvocationHandler {
     private Object obj;
 

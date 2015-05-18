@@ -65,22 +65,6 @@ public class RequestUtils {
         }
     }
 
-    private static String getMethodString(Request request) {
-        switch (request.getMethod()) {
-        case 0:
-            return "GET";
-        case 1:
-            return "POST";
-        case 2:
-            return "PUT";
-        case 3:
-            return "DELETE";
-        default:
-            Log.e(LOG_TAG, "Invalid HTTP method");
-            return "";
-        }
-    }
-
     private static void setRequestRetryPolicy(Context context, Request<?> request) {
         request.setRetryPolicy(new DefaultRetryPolicy(getTimeout(context), MAX_RETRIES, BACKOFF_MULT));
     }

@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class QueryParams extends HashMap {
 
     enum QueryKeys {
-        ID, TEXT, TAG
+        ID, TEXT
     }
 
     private QueryParams() {
@@ -15,7 +15,6 @@ public class QueryParams extends HashMap {
     public static QueryParams getNewInstance() {
         return new QueryParams();
     }
-
 
     public QueryParams setId(Integer id) {
         put(QueryKeys.ID, id);
@@ -33,15 +32,6 @@ public class QueryParams extends HashMap {
 
     public String getTEXT() {
         return (String) get(QueryKeys.TEXT);
-    }
-
-    public QueryParams setTAG(String id) {
-        put(QueryKeys.TAG, id);
-        return this;
-    }
-
-    public String getTAG() {
-        return (String) get(QueryKeys.TAG);
     }
 
 }

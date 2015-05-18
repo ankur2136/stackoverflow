@@ -19,7 +19,6 @@ public class ItemDataSource implements IItemDataSource {
     private static final String  LOG_TAG          = "ITEM_DATA_SOURCE";
     private final DatabaseHelper mDatabaseHelper;
     private final Context        mContext;
-    private long                 RECENT_THRESHOLD = 1000 * 60 * 60 * 24;
 
     public ItemDataSource(Context context) {
         this.mContext = context.getApplicationContext();
@@ -306,19 +305,6 @@ public class ItemDataSource implements IItemDataSource {
         } while (cursor.moveToNext());
 
         return answerItems;
-    }
-
-    private String appendWildcard(String query) {
-        if (TextUtils.isEmpty(query))
-            return query;
-
-        final StringBuilder builder = new StringBuilder();
-        final String[] splits = TextUtils.split(query, " ");
-
-        for (String split : splits)
-            builder.append(split).append("*").append(" ");
-
-        return builder.toString().trim();
     }
 
 }

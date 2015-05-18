@@ -5,19 +5,6 @@ import java.util.List;
 
 public abstract class Tables {
 
-    public static final String COMMA   = ", ";
-    public static final String NULL    = " NULL ";
-    public static final String INTEGER = " INTEGER ";
-    public static final String REAL    = " REAL ";
-    /**
-     * use it to save text, varchar, char
-     */
-    public static final String TEXT    = " TEXT ";
-    /**
-     * use it to save fotos, videos, audio, data etc.
-     */
-    public static final String BLOB    = " BLOB ";
-
     /**
      * Media Table containing all the (first level) items.
      */
@@ -34,12 +21,6 @@ public abstract class Tables {
         static final String COLUMN_QUESTION_ID        = "question_id";
         static final String COLUMN_LINK               = "link";
         static final String COLUMN_TITLE              = "title";
-
-        public static String[] getFullProjection() {
-            return new String[] { COLUMN_OWNER_ID, COLUMN_OWNER_NAME, COLUMN_IS_ANSWERED, COLUMN_VIEW_COUNT,
-                    COLUMN_ANSWER_COUNT, COLUMN_SCORE, COLUMN_LAST_ACTIVITY_DATE, COLUMN_CREATION_DATE,
-                    COLUMN_QUESTION_ID, COLUMN_LINK };
-        }
 
         public static String getCreateQuery() {
             StringBuilder query = new StringBuilder("CREATE TABLE " + TABLE_NAME);
@@ -66,10 +47,6 @@ public abstract class Tables {
             List<String> queries = new ArrayList<>();
             queries.add("CREATE INDEX IF NOT EXISTS ITEM_ID ON " + TABLE_NAME + " (" + COLUMN_QUESTION_ID + ")");
             return queries;
-        }
-
-        public static String getDropQuery() {
-            return null;
         }
     }
 
@@ -144,9 +121,6 @@ public abstract class Tables {
             return query.toString();
         }
 
-        public static String getDropQuery() {
-            return null;
-        }
     }
 
 }

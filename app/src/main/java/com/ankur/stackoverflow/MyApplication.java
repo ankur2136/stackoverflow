@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.ankur.stackoverflow.utils.NetworkConnectivityListener;
 import com.ankur.stackoverflow.utils.NetworkUtils;
-import com.ankur.stackoverflow.utils.SharedPrefs;
 import com.ankur.stackoverflow.utils.VolleyLib;
 
 public class MyApplication extends Application implements NetworkConnectivityListener.ConnectivityChangedListener {
@@ -49,7 +48,6 @@ public class MyApplication extends Application implements NetworkConnectivityLis
     public void onCreate() {
         super.onCreate();
         VolleyLib.init(this);
-        SharedPrefs.getInstance().init(this);
     }
 
     @Override

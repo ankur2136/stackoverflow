@@ -11,7 +11,7 @@ import com.ankur.stackoverflow.domain.dto.QuestionItem;
 import com.ankur.stackoverflow.utils.CollectionUtils;
 import com.ankur.stackoverflow.utils.LogUtils;
 
-public class ItemRepository implements ContentRepository<QuestionItem, String> {
+public class ItemRepository implements ContentRepository<QuestionItem, AnswerItem> {
 
     private static final String LOG_TAG   = "ITEM_REPOSITORY";
 
@@ -19,12 +19,6 @@ public class ItemRepository implements ContentRepository<QuestionItem, String> {
 
     ItemDataSource              mCloud    = new CloudStore();
 
-    @Override
-    public void removeItems(List<QuestionItem> questionItems) {
-
-    }
-
-    @Override
     public void setItem(QuestionItem question, String query) {
         mDatabase.putQuestionItem(question, query);
     }
