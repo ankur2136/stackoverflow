@@ -6,9 +6,9 @@ import java.util.concurrent.ConcurrentMap;
 
 public class FailSafeCacheManager implements CacheManager {
 
-    protected final ConcurrentMap<String, FailSafeCache> failSafeCaches = new ConcurrentHashMap<String, FailSafeCache>();
+    private final ConcurrentMap<String, FailSafeCache> failSafeCaches = new ConcurrentHashMap<>();
 
-    protected CacheManager cacheManager;
+    private CacheManager cacheManager;
 
     public FailSafeCacheManager(CacheManager cacheManager) {
         this.cacheManager = cacheManager;

@@ -11,7 +11,7 @@ public class CacheConstants {
     @CacheConfig(ttl = 20)
     public static final String CACHE_TWENTY_SEC = "20-sec";
 
-    @CacheConfig(ttl = 1 * 60)
+    @CacheConfig(ttl = 60)
     public static final String CACHE_ONE_MIN = "1-min";
 
     @CacheConfig(ttl = 2 * 60)

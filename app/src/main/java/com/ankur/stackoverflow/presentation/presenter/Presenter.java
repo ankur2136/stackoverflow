@@ -13,7 +13,7 @@ public class Presenter<V extends BaseView> implements BasePresenter<V> {
 
     @Override
     public void attachView(V view) {
-        viewRef = new WeakReference<V>(view);
+        viewRef = new WeakReference<>(view);
     }
 
     /**
@@ -25,10 +25,10 @@ public class Presenter<V extends BaseView> implements BasePresenter<V> {
     }
 
     protected void resume() {
-    };
+    }
 
     protected void pause() {
-    };
+    }
 
     /**
      * Checks if a view is attached to this presenter. You should always call

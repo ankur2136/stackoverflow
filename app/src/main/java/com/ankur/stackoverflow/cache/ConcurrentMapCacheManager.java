@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentMap;
 
 public class ConcurrentMapCacheManager implements CacheManager {
 
-    private final ConcurrentMap<String, Cache> cacheMap = new ConcurrentHashMap<String, Cache>(16);
+    private final ConcurrentMap<String, Cache> cacheMap = new ConcurrentHashMap<>(16);
 
     private boolean dynamic = true;
 

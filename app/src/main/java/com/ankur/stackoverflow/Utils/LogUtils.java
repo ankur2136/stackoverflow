@@ -218,14 +218,4 @@ public class LogUtils {
                 .getName(), LOG_PREFIX, tag, caller);
     }
 
-    /**
-     * Logs error messages to Crashlytics. Ignores rest of the messages.
-     */
-    public static class ProductionLogger extends NoOpLogger {
-        @Override
-        public void error(String tag, String message, Throwable exception) {
-
-        }
-    }
-
 }

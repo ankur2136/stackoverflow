@@ -1,14 +1,11 @@
 package com.ankur.stackoverflow.presentation.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
 
-import com.ankur.stackoverflow.MyApplication;
 import com.ankur.stackoverflow.R;
 import com.ankur.stackoverflow.common.CompatUtils;
 import com.ankur.stackoverflow.utils.LogUtils;
@@ -17,12 +14,6 @@ import com.ankur.stackoverflow.utils.Utils;
 public abstract class BaseActivity extends ActionBarActivity {
 
     private static final String LOG_TAG   = "BASE_ACTIVITY";
-
-    private MyApplication       mMyApplication;
-
-    private boolean             mIsPaused = false;
-
-    private Menu                mToolbarMenu;
 
     @Override
     public void setContentView(int layoutResID) {
@@ -36,34 +27,6 @@ public abstract class BaseActivity extends ActionBarActivity {
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        mToolbarMenu = menu;
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    public void clearMenu() {
-        mToolbarMenu.clear();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onCreate(): " + this.getClass().getSimpleName());
-        super.onCreate(savedInstanceState);
-        mMyApplication = (MyApplication) getApplicationContext();
-
-        if (savedInstanceState == null) {
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, this.getClass().getSimpleName() + " : onCreateOptionsMenu()");
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public void onStart() {
         if (LogUtils.isDebugLogEnabled())
             LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onStart(): " + this.getClass().getSimpleName());
@@ -71,59 +34,10 @@ public abstract class BaseActivity extends ActionBarActivity {
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onNewIntent(): " + this.getClass().getSimpleName());
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onWindowFocusChanged(" + hasFocus + "): "
-                    + this.getClass().getSimpleName());
-    }
-
-    @Override
-    protected void onResume() {
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onResume(): " + this.getClass().getSimpleName());
-        mIsPaused = false;
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onPause(): " + this.getClass().getSimpleName());
-        mIsPaused = true;
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onStop(): " + this.getClass().getSimpleName());
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onDestroy(): " + this.getClass().getSimpleName());
-        super.onDestroy();
-    }
-
-    @Override
     protected void onActivityResult(int arg0, int arg1, Intent arg2) {
         if (LogUtils.isDebugLogEnabled())
             LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onActivityResult(): " + this.getClass().getSimpleName());
         super.onActivityResult(arg0, arg1, arg2);
-    }
-
-    public MyApplication getMyApplication() {
-        return mMyApplication;
     }
 
     protected void backPress() {
@@ -152,15 +66,11 @@ public abstract class BaseActivity extends ActionBarActivity {
         // or later, or by the code above on earlier versions of the
         // platform.
         if (this instanceof HomeActivity) {
-            ((HomeActivity) this).onKeyUp(KeyEvent.KEYCODE_BACK, null);
-            ((HomeActivity) this).onBackPressed();
+            this.onKeyUp(KeyEvent.KEYCODE_BACK, null);
+            this.onBackPressed();
         } else {
             backPress();
         }
-    }
-
-    public boolean isPaused() {
-        return mIsPaused;
     }
 
     @Override

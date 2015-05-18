@@ -12,7 +12,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -53,13 +52,9 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
 
     private static final String               KEY_QUESTION_ITEM_ID = "question_item_id";
 
-    private static final String               KEY_QUESTION_ITEM    = "question_item";
-
     private int                               mScrollPosition      = 0;
 
     private SearchView                        mSearchView;
-
-    private boolean                           mIsKeyboardShown     = true;
 
     SearchResultAdapter                       mQuestionListAdapter;
 
@@ -81,12 +76,6 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
      * Should not be called from outside this fragment.
      */
     public UniSearchFragment() {
-    }
-
-    public static Bundle getQuestionItemBundle(QuestionItem questionItem) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(KEY_QUESTION_ITEM, questionItem);
-        return bundle;
     }
 
     public static UniSearchFragment newInstance() {
@@ -125,11 +114,6 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
     }
 
     @Override
-    public void onNewBundle(Bundle bundle) {
-        super.onNewBundle(bundle);
-    }
-
-    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
         menu.clear();
         LogUtils.debugLog(LOG_TAG, "onCreateOptionsMenu");
@@ -161,7 +145,7 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
             return;
         }
 
-        //Clear the previous results
+        // Clear the previous results
         mQuestionListAdapter.setQuestionsCollection(new ArrayList<QuestionItem>());
 
         mQuery = query;
@@ -175,16 +159,9 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
         if (mSearchView == null)
             return;
 
-        if (mIsKeyboardShown) {
-            if (LogUtils.isDebugLogEnabled())
-                LogUtils.debugLog(LOG_TAG, "Bringing up keyboard");
-            mSearchView.setIconified(false);
-            mSearchView.requestFocus();
-        } else {
-            if (LogUtils.isDebugLogEnabled())
-                LogUtils.debugLog(LOG_TAG, "Hiding keyboard");
-            mSearchView.clearFocus();
-        }
+        if (LogUtils.isDebugLogEnabled())
+            LogUtils.debugLog(LOG_TAG, "Bringing up keyboard");
+        mSearchView.setIconified(false);
     }
 
     private void setupSearchView(SearchView searchView) {
@@ -303,22 +280,8 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
     }
 
     @Override
-    public void renderItem(QuestionItem questionItem) {
-        LogUtils.debugLog(LOG_TAG, "HERE");
-    }
-
-    @Override
     public void viewItem(QuestionItem questionItem) {
         mListener.onItemClick(questionItem);
-    }
-
-    @Override
-    public void deleteItem(QuestionItem item) {
-
-    }
-
-    @Override
-    public void viewPopupWindow(View anchor, QuestionItem item) {
     }
 
     @Override

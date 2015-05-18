@@ -1,14 +1,12 @@
 package com.ankur.stackoverflow.common;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.RequestFuture;
-import com.ankur.stackoverflow.MyApplication;
 import com.ankur.stackoverflow.utils.JsonObjectSignedRequest;
 import com.ankur.stackoverflow.utils.LogUtils;
 import com.ankur.stackoverflow.utils.NetworkUtils;
@@ -31,9 +29,7 @@ public class RequestUtils {
 
     public static <T> JsonRequest<T> getRequest(T object, Context context, int method, String url,
             JSONObject jsonRequest, Response.Listener<T> listener, Response.ErrorListener errorListener) {
-        MyApplication application = (MyApplication) context.getApplicationContext();
-        JsonRequest<T> request = new JsonObjectSignedRequest(object, method, url, jsonRequest, listener, errorListener,
-                application);
+        JsonRequest<T> request = new JsonObjectSignedRequest(object, method, url, jsonRequest, listener, errorListener);
         setRequestRetryPolicy(context, request);
         return request;
     }
@@ -62,22 +58,6 @@ public class RequestUtils {
             return LOW_TIMEOUT;
         } else {
             return HIGH_TIMEOUT;
-        }
-    }
-
-    private static String getMethodString(Request request) {
-        switch (request.getMethod()) {
-        case 0:
-            return "GET";
-        case 1:
-            return "POST";
-        case 2:
-            return "PUT";
-        case 3:
-            return "DELETE";
-        default:
-            Log.e(LOG_TAG, "Invalid HTTP method");
-            return "";
         }
     }
 

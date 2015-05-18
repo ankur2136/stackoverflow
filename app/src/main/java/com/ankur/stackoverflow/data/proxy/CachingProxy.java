@@ -22,9 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by dhruva on 03/05/15.
- */
 public class CachingProxy implements java.lang.reflect.InvocationHandler {
     private Object obj;
 
@@ -33,7 +30,7 @@ public class CachingProxy implements java.lang.reflect.InvocationHandler {
                 .getClass().getInterfaces(), new CachingProxy(obj));
     }
 
-    public CachingProxy(Object obj) {
+    private CachingProxy(Object obj) {
         this.obj = obj;
     }
 
@@ -137,14 +134,14 @@ public class CachingProxy implements java.lang.reflect.InvocationHandler {
     private <T> CacheOp<T> lazyGetCacheOp(Map<Class, CacheOp> cacheOpMap, Class<T> klass) {
         CacheOp<T> cacheOp = cacheOpMap.get(klass);
         if (cacheOp == null) {
-            cacheOp = new CacheOp<T>();
+            cacheOp = new CacheOp<>();
             cacheOpMap.put(klass, cacheOp);
         }
         return cacheOp;
     }
 
     private <T extends Annotation> Collection<T> getAnnotations(AnnotatedElement ae, Class<T> annotationType) {
-        Collection<T> anns = new ArrayList<T>(2);
+        Collection<T> anns = new ArrayList<>(2);
 
         // look at raw annotation
         T ann = ae.getAnnotation(annotationType);

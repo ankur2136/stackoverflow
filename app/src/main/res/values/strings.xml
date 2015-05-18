@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">StackOverflow</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
     <string name="search_hint">Search</string>
+    <string name="retry">Retry</string>
+    <string name="db_dump">DB Dump</string>
+    <string name="welcome_message">Welcome to StackOverflow!!</string>
+    <string name="votes">Votes</string>
+    <string name="up">Up |</string>
+    <string name="answers">Answers</string>
+    <string name="down">Down |</string>
+    <string name="views">Views</string>
+    <string name="none">none</string>
 </resources>

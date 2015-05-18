@@ -18,7 +18,7 @@ public class CacheService {
     }
 
     private static Map<String, Long> getExpireMap() {
-        Map<String, Long> expireMap = new HashMap<String, Long>();
+        Map<String, Long> expireMap = new HashMap<>();
         Field[] fields = CacheConstants.class.getFields();
         for (Field field : fields) {
             CacheConfig cacheConfig = field.getAnnotation(CacheConfig.class);
@@ -34,7 +34,7 @@ public class CacheService {
     }
 
     private static Map<String, Long> getMaxSizeMap() {
-        Map<String, Long> maxSizeMap = new HashMap<String, Long>();
+        Map<String, Long> maxSizeMap = new HashMap<>();
         Field[] fields = CacheConstants.class.getFields();
         for (Field field : fields) {
             CacheConfig cacheConfig = field.getAnnotation(CacheConfig.class);
@@ -50,7 +50,7 @@ public class CacheService {
     }
 
     private static Map<String, EvictionPolicy> getEvictionPolicyMap() {
-        Map<String, EvictionPolicy> evictionPolicyMap = new HashMap<String, EvictionPolicy>();
+        Map<String, EvictionPolicy> evictionPolicyMap = new HashMap<>();
         Field[] fields = CacheConstants.class.getFields();
         for (Field field : fields) {
             CacheConfig cacheConfig = field.getAnnotation(CacheConfig.class);

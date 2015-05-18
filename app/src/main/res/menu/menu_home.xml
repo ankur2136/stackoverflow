@@ -11,7 +11,7 @@
     <item
         android:id="@+id/action_dump"
         android:orderInCategory="100"
-        android:title="DB Dump"
+        android:title="@string/db_dump"
         app:showAsAction="always" />
 
 </menu>

@@ -17,15 +17,11 @@ import com.ankur.stackoverflow.domain.dto.QuestionItem;
 
 public class SearchResultAdapter extends BaseAdapter {
 
-    private String               LOG_TAG = "SEARCH_RESULT_ADAPTER";
-
     private final LayoutInflater mLayoutInflater;
 
     private List<QuestionItem>   mQuestions;
 
     private OnItemClickListener  mOnItemClickListener;
-
-    private Context              mContext;
 
     public interface OnItemClickListener {
         void onItemClicked(View anchor, QuestionItem questionItem);
@@ -33,7 +29,6 @@ public class SearchResultAdapter extends BaseAdapter {
 
     public SearchResultAdapter(Context context, Collection<QuestionItem> collection) {
         validateCollection(collection);
-        mContext = context;
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mQuestions = new ArrayList<>(collection);
     }
@@ -113,12 +108,11 @@ public class SearchResultAdapter extends BaseAdapter {
 
     public static class ViewHolder {
 
-        TextView    votes;
-        TextView    answers;
-        TextView    views;
-        TextView    title;
-        TextView    subtitle;
-        int         position = -1;
+        TextView votes;
+        TextView answers;
+        TextView views;
+        TextView title;
+        TextView subtitle;
 
         public void instantiate(View view) {
             votes = (TextView) view.findViewById(R.id.tv_votes);
@@ -135,11 +129,5 @@ public class SearchResultAdapter extends BaseAdapter {
             ViewUtils.setupTextView(title, item.mTitle);
             ViewUtils.setupTextView(subtitle, item.mOwnerInfo.mDisplayName);
         }
-
-        public void setPosition(int pos) {
-            position = pos;
-        }
-
     }
-
 }

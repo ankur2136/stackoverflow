@@ -22,12 +22,6 @@ public class HomeActivity extends BaseActivity implements BaseView.InteractionLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        if (savedInstanceState == null) {
-            startFragments();
-        }
-    }
-
-    private void startFragments() {
     }
 
     @Override

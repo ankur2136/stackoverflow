@@ -1,7 +1,5 @@
 package com.ankur.stackoverflow.presentation.presenter;
 
-import android.view.View;
-
 import com.ankur.stackoverflow.common.QueryParams;
 import com.ankur.stackoverflow.domain.interactor.GetItemsUseCase;
 import com.ankur.stackoverflow.domain.usecase.Callback;
@@ -109,9 +107,6 @@ public class ItemPresenter<I> extends Presenter<CollectionView<I>> {
 
     public void onItemClicked(I item) {
         getView().viewItem(item);
-    }
-
-    public void onOverflowClicked(View v, I item) {
     }
 
     private void showErrorMessage(Exception ex) {

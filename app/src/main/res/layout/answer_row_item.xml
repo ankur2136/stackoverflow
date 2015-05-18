@@ -42,7 +42,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textIsSelectable="false"
-            android:text=" Up | "
+            android:text="@string/up"
             android:textColor="@android:color/white"
             android:textSize="12sp" />
 
@@ -62,7 +62,7 @@
             android:ellipsize="end"
             android:singleLine="true"
             android:textIsSelectable="false"
-            android:text=" Down | "
+            android:text="@string/down"
             android:textColor="@android:color/white"
             android:textSize="12sp" />
 
@@ -93,6 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_margin="8dp"
-        android:src="#000000" />
+        android:src="#000000"
+        android:contentDescription="@string/none" />
 
 </LinearLayout>

@@ -45,7 +45,7 @@ import com.android.volley.VolleyLog;
 public class DiskBasedCache implements Cache {
 
     /** Map of the Key, CacheHeader pairs */
-    protected final Map<String, CacheHeader> mEntries                 = new LinkedHashMap<String, CacheHeader>(16,
+    protected final Map<String, CacheHeader> mEntries                 = new LinkedHashMap<>(16,
                                                                               .75f, true);
 
     /** Total amount of space currently used by the cache in bytes. */
@@ -165,9 +165,7 @@ public class DiskBasedCache implements Cache {
                 entry.size = file.length();
                 putEntry(entry.key, entry);
             } catch (IOException e) {
-                if (file != null) {
                     file.delete();
-                }
             } finally {
                 try {
                     if (fis != null) {
@@ -221,6 +219,7 @@ public class DiskBasedCache implements Cache {
             putEntry(key, e);
             return;
         } catch (IOException e) {
+            //Do nothing
         }
         boolean deleted = file.delete();
         if (!deleted) {
@@ -511,24 +510,24 @@ public class DiskBasedCache implements Cache {
         return b;
     }
 
-    static void writeInt(OutputStream os, int n) throws IOException {
-        os.write((n >> 0) & 0xff);
+    private static void writeInt(OutputStream os, int n) throws IOException {
+        os.write((n) & 0xff);
         os.write((n >> 8) & 0xff);
         os.write((n >> 16) & 0xff);
         os.write((n >> 24) & 0xff);
     }
 
-    static int readInt(InputStream is) throws IOException {
+    private static int readInt(InputStream is) throws IOException {
         int n = 0;
-        n |= (read(is) << 0);
+        n |= (read(is));
         n |= (read(is) << 8);
         n |= (read(is) << 16);
         n |= (read(is) << 24);
         return n;
     }
 
-    static void writeLong(OutputStream os, long n) throws IOException {
-        os.write((byte) (n >>> 0));
+    private static void writeLong(OutputStream os, long n) throws IOException {
+        os.write((byte) (n));
         os.write((byte) (n >>> 8));
         os.write((byte) (n >>> 16));
         os.write((byte) (n >>> 24));
@@ -538,9 +537,9 @@ public class DiskBasedCache implements Cache {
         os.write((byte) (n >>> 56));
     }
 
-    static long readLong(InputStream is) throws IOException {
+    private static long readLong(InputStream is) throws IOException {
         long n = 0;
-        n |= ((read(is) & 0xFFL) << 0);
+        n |= ((read(is) & 0xFFL));
         n |= ((read(is) & 0xFFL) << 8);
         n |= ((read(is) & 0xFFL) << 16);
         n |= ((read(is) & 0xFFL) << 24);
@@ -551,19 +550,19 @@ public class DiskBasedCache implements Cache {
         return n;
     }
 
-    static void writeString(OutputStream os, String s) throws IOException {
+    private static void writeString(OutputStream os, String s) throws IOException {
         byte[] b = s.getBytes("UTF-8");
         writeLong(os, b.length);
         os.write(b, 0, b.length);
     }
 
-    static String readString(InputStream is) throws IOException {
+    private static String readString(InputStream is) throws IOException {
         int n = (int) readLong(is);
         byte[] b = streamToBytes(is, n);
         return new String(b, "UTF-8");
     }
 
-    static void writeStringStringMap(Map<String, String> map, OutputStream os) throws IOException {
+    private static void writeStringStringMap(Map<String, String> map, OutputStream os) throws IOException {
         if (map != null) {
             writeInt(os, map.size());
             for (Map.Entry<String, String> entry : map.entrySet()) {
@@ -575,7 +574,7 @@ public class DiskBasedCache implements Cache {
         }
     }
 
-    static Map<String, String> readStringStringMap(InputStream is) throws IOException {
+    private static Map<String, String> readStringStringMap(InputStream is) throws IOException {
         int size = readInt(is);
         Map<String, String> result = (size == 0) ? Collections.<String, String> emptyMap()
                 : new HashMap<String, String>(size);

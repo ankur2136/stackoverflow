@@ -36,7 +36,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textIsSelectable="false"
-                android:text="Votes"
+                android:text="@string/votes"
                 android:textColor="@android:color/white"
                 android:textSize="12sp" />
 
@@ -56,7 +56,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textIsSelectable="false"
-                android:text="Answers"
+                android:text="@string/answers"
                 android:textColor="@android:color/white"
                 android:textSize="12sp" />
 
@@ -76,7 +76,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textIsSelectable="false"
-                android:text="Views"
+                android:text="@string/views"
                 android:textColor="@android:color/black"
                 android:textSize="12sp" />
 
@@ -119,5 +119,6 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_margin="8dp"
-        android:src="#000000" />
+        android:src="#000000"
+        android:contentDescription="@string/none" />
 </LinearLayout>

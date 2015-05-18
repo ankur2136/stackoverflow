@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.ankur.stackoverflow.MyApplication;
 import com.ankur.stackoverflow.presentation.activity.BaseActivity;
@@ -20,9 +18,9 @@ public abstract class BaseFragment extends Fragment {
 
     private static final String LOG_TAG = "BASE_FRAGMENT";
 
-    protected BaseActivity mActivity;
+    protected BaseActivity      mActivity;
 
-    protected MyApplication mApplication;
+    protected MyApplication     mApplication;
 
     /*
      * Method to standardize tags of all fragments
@@ -150,81 +148,6 @@ public abstract class BaseFragment extends Fragment {
                     + getFragmentTag());
         mActivity = null;
         super.onDetach();
-    }
-
-    /*
-     * Returns true if the fragment is a Screen.
-     */
-    protected boolean isScreen() {
-        return false;
-    }
-
-    protected String getScreenTitle() {
-        return "";
-    }
-
-    protected String getScreenSubTitle() {
-        return null;
-    }
-
-    public boolean isOptionsMenuAllowed() {
-        return false;
-    }
-
-    private void setActionBarTitle(ActionBar actionBar, CharSequence title) {
-        LogUtils.debugLog(LOG_TAG, "HERE");
-        if (mActivity != null) {
-            // On certain devices (LG, running 4.1.2) setting spannable string
-            // in title leads to ISE
-            int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
-            TextView titleTextView = (TextView) mActivity.findViewById(actionBarTitleId);
-            if (titleTextView != null) {
-                titleTextView.setText(title);
-                return;
-            }
-        }
-        actionBar.setTitle(title);
-    }
-
-    public void setupActionBar() {
-        if (LogUtils.isDebugLogEnabled())
-            LogUtils.debugLog(LOG_TAG, "setupActionBar(): " + getFragmentTag());
-
-        if (!isAdded()) {
-            return;
-        }
-
-        String title = getScreenTitle();
-        String subTitle = getScreenSubTitle();
-
-        try {
-            // FIXME Workaround for full-screen activities.
-            ActionBar actionBar = mActivity.getSupportActionBar();
-            if (actionBar != null) {
-                if (title != null) {
-                    setActionBarTitle(actionBar, title);
-                }
-
-                actionBar.setSubtitle(subTitle);
-
-                // int icon = getActionBarIcon();
-
-                // if (icon == -1) {
-                // actionBar.setIcon(new
-                // ColorDrawable(android.R.color.transparent));
-                // } else {
-                // Drawable iconDrawable = getResources().getDrawable(icon);
-                // int drawableSizeInPx = Utils.dpToPixels(mActivity, 20);
-                // iconDrawable.setBounds(0, 0, drawableSizeInPx,
-                // drawableSizeInPx);
-                // actionBar.setIcon(iconDrawable);
-                // }
-
-                actionBar.setDisplayHomeAsUpEnabled(true);
-            }
-        } catch (Exception e) {
-            LogUtils.warnLog(getFragmentTag(), "Error", e);
-        }
     }
 
 }
