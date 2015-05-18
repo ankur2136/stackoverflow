@@ -1,11 +1,5 @@
 package com.ankur.stackoverflow.common;
 
-import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.provider.Settings;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -24,48 +18,6 @@ public class NavigationUtils {
 
     public static final int     SLIDE_FROM_TOP   = 2;
 
-    public static boolean       DO_NOT_CLEAR_TOP = false;
-
-    public static void addFragment(FragmentManager fragmentManager, Fragment fragment, int containerView,
-            boolean addToBackStack) {
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        if (transaction.isAddToBackStackAllowed()) {
-            if (addToBackStack)
-                transaction.addToBackStack(null);
-        } else {
-            LogUtils.infoLog(LOG_TAG, "addToBackStack() not allowed");
-        }
-
-        transaction.add(containerView, fragment).commit();
-    }
-
-    public static void showFragment(FragmentManager fragmentManager, Fragment fragment) {
-        fragmentManager.beginTransaction().setCustomAnimations(NO_ANIMATION, NO_ANIMATION).show(fragment).commit();
-    }
-
-    public static void hideFragment(FragmentManager fragmentManager, Fragment fragment) {
-        fragmentManager.beginTransaction().setCustomAnimations(NO_ANIMATION, NO_ANIMATION).hide(fragment).commit();
-    }
-
-    public static boolean removeFragment(FragmentManager fragmentManager, String fragmentTag) {
-        BaseFragment frag = (BaseFragment) fragmentManager.findFragmentByTag(fragmentTag);
-        if (frag != null) {
-            LogUtils.infoLog(LOG_TAG, "Fragment with tag " + fragmentTag + " found!");
-            fragmentManager.beginTransaction().remove(frag).commit();
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean removeFragment(FragmentManager fragmentManager, Fragment frag) {
-        if (frag != null) {
-            fragmentManager.popBackStackImmediate();
-            fragmentManager.beginTransaction().remove(frag).commit();
-            return true;
-        }
-        return false;
-    }
-
     /*
      * Returns reference to fragment which is in container after the transaction
      * process (either previous instance or a new one). Returns null if the
@@ -74,8 +26,7 @@ public class NavigationUtils {
     public static Fragment startFragment(FragmentManager fragmentManager, int container, Fragment fragment,
             boolean addToBackStack, int customAnimation) {
 
-        String tag = "TAG_NOT_FOUND"; // FIXME This should never happen
-
+        String tag = "TAG_NOT_FOUND";
         if (fragment instanceof BaseFragment) {
             tag = ((BaseFragment) fragment).getFragmentTag();
         }
@@ -120,30 +71,6 @@ public class NavigationUtils {
 
         return null;
 
-        /*
-         * NOTE: Code for reusing old instance
-         * 
-         * LogUtils.infoLog(LOG_TAG, "Reusing old instance: " + tag); int
-         * backStackCount = fragmentManager.getBackStackEntryCount(); int oldPos
-         * = 0;
-         * 
-         * for (int i = backStackCount - 1; i >= 0; i--) {
-         * FragmentManager.BackStackEntry entry =
-         * fragmentManager.getBackStackEntryAt(i); if
-         * (entry.getName().equals(tag)) { oldPos = i; break; } }
-         * LogUtils.infoLog(LOG_TAG, "Old fragment found at: " + oldPos);
-         * 
-         * for (int i = backStackCount - 1; i >= oldPos; i--) {
-         * LogUtils.infoLog(LOG_TAG, "Popping fragment at: " + i);
-         * fragmentManager.popBackStackImmediate(); }
-         * 
-         * FragmentTransaction transaction = fragmentManager.beginTransaction();
-         * if (backStack)
-         * transaction.setCustomAnimations(android.R.anim.fade_in,
-         * android.R.anim.fade_out); transaction.replace(container, fragment,
-         * tag); if (backStack) transaction.addToBackStack(tag);
-         * transaction.commit();
-         */
     }
 
     private static void performFragmentTransaction(FragmentManager fragmentManager, int container, Fragment fragment,
@@ -185,80 +112,6 @@ public class NavigationUtils {
             transaction.commitAllowingStateLoss();
         } else {
             transaction.commit();
-        }
-    }
-
-    private static void performDialogFragmentTransaction(DialogFragment dialogFragment,
-            FragmentManager fragmentManager, String tag, boolean allowStateLoss) {
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(dialogFragment, tag);
-        if (allowStateLoss) {
-            transaction.commitAllowingStateLoss();
-        } else {
-            transaction.commit();
-        }
-    }
-
-    public static Fragment startFragmentInMainPanel(com.ankur.stackoverflow.presentation.activity.BaseActivity activity, Fragment fragment, boolean addToBackStack,
-            int customAnimation) {
-        // if (activity instanceof BaseHomeActivity) {
-        // ((BaseHomeActivity) activity).collapsePlayer();
-        // }
-
-        return startFragment(activity.getSupportFragmentManager(), R.id.fl_fragment_container, fragment,
-                addToBackStack, customAnimation);
-    }
-
-    public static void startActivity(Context context, Intent intent, boolean collapsePanel, boolean catchExceptions) {
-        // if (collapsePanel) {
-        // if (context instanceof BaseHomeActivity) {
-        // ((BaseHomeActivity) context).collapsePlayer();
-        // }
-        // }
-
-        if (DO_NOT_CLEAR_TOP) {
-            return;
-        }
-        if (intent != null) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        }
-
-        if (catchExceptions) {
-            try {
-                context.startActivity(intent);
-            } catch (ActivityNotFoundException e) {
-                LogUtils.errorLog(LOG_TAG, "Activity not found", e);
-            }
-        } else {
-            context.startActivity(intent);
-        }
-    }
-
-    public static void startActivity(Context context, Intent intent, boolean collapsePanel) {
-        startActivity(context, intent, collapsePanel, true);
-    }
-
-    public static void startActivity(Context context, Intent intent) {
-        startActivity(context, intent, true);
-    }
-
-    public static void startAppInfoScreen(Context context, String packageName) {
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        Uri uri = Uri.fromParts("package", packageName, null);
-        intent.setData(uri);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(context, intent, false);
-    }
-
-    public static void startDialogFragment(DialogFragment dialogFragment, FragmentManager fragmentManager, String tag) {
-        try {
-            performDialogFragmentTransaction(dialogFragment, fragmentManager, tag, false);
-        } catch (Exception e) {
-            try {
-                performDialogFragmentTransaction(dialogFragment, fragmentManager, tag, true);
-            } catch (Exception ex) {
-
-            }
         }
     }
 
