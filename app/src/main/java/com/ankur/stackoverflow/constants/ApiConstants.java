@@ -66,9 +66,8 @@ public class ApiConstants {
     }
 
     public static String getAnswerUrl(Integer questionId, int page, int pageSize) {
-        String url = "https://api.stackexchange.com/2.2/questions/" + questionId + "/answers?page=" + page
+        return "https://api.stackexchange.com/2.2/questions/" + questionId + "/answers?page=" + page
                 + "&pagesize=" + pageSize + "&order=asc&sort=activity&site=stackoverflow&filter=!b0OfNcJ.PMNTza";
-        return url;
     }
 
     public static String getSearchUrl(String query) {
@@ -82,9 +81,8 @@ public class ApiConstants {
         } catch (UnsupportedEncodingException e) {
             // do nothing
         }
-        String url = "https://api.stackexchange.com/2.2/search?page=" + page + "&pagesize=" + pageSize
+        return "https://api.stackexchange.com/2.2/search?page=" + page + "&pagesize=" + pageSize
                 + "&order=asc&sort=activity&intitle=" + query + "&site=stackoverflow";
-        return url;
     }
 
 }

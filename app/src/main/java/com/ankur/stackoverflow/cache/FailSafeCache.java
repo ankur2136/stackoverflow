@@ -5,8 +5,8 @@ import com.ankur.stackoverflow.utils.LogUtils;
 
 public class FailSafeCache implements Cache {
     private String LOG_TAG = "FailSafeCache";
-    protected Cache targetCache;
-    protected static final ValueWrapper NULL_VALUE_WRAPPER = new ValueWrapper(null);
+    private Cache targetCache;
+    private static final ValueWrapper NULL_VALUE_WRAPPER = new ValueWrapper(null);
 
     public FailSafeCache(Cache targetCache) {
         this.targetCache = targetCache;
@@ -17,8 +17,7 @@ public class FailSafeCache implements Cache {
         try {
             this.targetCache.clear();
         } catch (Exception eX) {
-            String errorMessage = String.format("Failed to clear the cache. #clear called from server name %s");
-            LogUtils.errorLog(LOG_TAG, errorMessage, eX);
+            //do nothing
         }
     }
 

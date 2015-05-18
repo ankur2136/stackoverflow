@@ -9,7 +9,7 @@
     <Button
         android:id="@+id/bt_retry"
         style="@style/AppTheme.Button"
-        android:text="Retry"
+        android:text="@string/retry"
         />
 
 </RelativeLayout>

@@ -45,7 +45,7 @@ public class LocalConcurrentMapCacheManager extends ConcurrentMapCacheManager {
      * @param expires time in seconds
      */
     public void setExpires(Map<String, Long> expires) {
-        this.expires = (expires != null ? new ConcurrentHashMap<String, Long>(expires) : null);
+        this.expires = (expires != null ? new ConcurrentHashMap<>(expires) : null);
     }
 
     /**
@@ -70,7 +70,7 @@ public class LocalConcurrentMapCacheManager extends ConcurrentMapCacheManager {
         long expiration = computeExpiration(name);
         long maxSize = computeMaxSize(name);
         EvictionPolicy evictionPolicy = computeEvictionPolicy(name);
-        LocalConcurrentMapCache localConcurrentMapCache = getLocalConcurrentCache(name, new ConcurrentHashMap<Object, Object>(256),
+        LocalConcurrentMapCache localConcurrentMapCache = getLocalConcurrentCache(name, new ConcurrentHashMap<>(256),
                 expiration, maxSize, evictionPolicy);
         caches.add(localConcurrentMapCache);
         return localConcurrentMapCache;
@@ -81,7 +81,7 @@ public class LocalConcurrentMapCacheManager extends ConcurrentMapCacheManager {
         if (expires != null) {
             expiration = expires.get(name);
         }
-        return (expiration != null ? expiration.longValue() : -1);
+        return (expiration != null ? expiration : -1);
     }
 
     private long computeMaxSize(String name) {
@@ -89,7 +89,7 @@ public class LocalConcurrentMapCacheManager extends ConcurrentMapCacheManager {
         if (maxSizes != null) {
             maxSize = maxSizes.get(name);
         }
-        return (maxSize != null ? maxSize.longValue() : -1);
+        return (maxSize != null ? maxSize : -1);
     }
 
     private EvictionPolicy computeEvictionPolicy(String name) {
@@ -117,8 +117,8 @@ public class LocalConcurrentMapCacheManager extends ConcurrentMapCacheManager {
 
     private LocalConcurrentMapCache getLocalConcurrentCache(String name, ConcurrentMap<Object, Object> store, long expiration, long maxSize, EvictionPolicy evictionPolicy) {
         if (evictionPolicy == EvictionPolicy.ALL_KEYS_LRU) {
-            return new LRUCache(name, new ConcurrentHashMap<Object, Object>(256), expiration, maxSize);
+            return new LRUCache(name, new ConcurrentHashMap<>(256), expiration, maxSize);
         }
-        return new LocalConcurrentMapCache(name, new ConcurrentHashMap<Object, Object>(256), expiration, maxSize);
+        return new LocalConcurrentMapCache(name, new ConcurrentHashMap<>(256), expiration, maxSize);
     }
 }

@@ -74,7 +74,7 @@ public class NavigationUtils {
     }
 
     private static void performFragmentTransaction(FragmentManager fragmentManager, int container, Fragment fragment,
-            String tag, boolean addToBackStack, boolean allowStateLoss, int customAnimation) throws Exception {
+            String tag, boolean addToBackStack, boolean allowStateLoss, int customAnimation) {
 
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 

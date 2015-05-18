@@ -1,7 +1,6 @@
 package com.ankur.stackoverflow.common;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;

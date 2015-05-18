@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="20sp"
-            android:text="Welcome to StackOverflow!!"/>
+            android:text="@string/welcome_message"/>
     </FrameLayout>
 
     <include

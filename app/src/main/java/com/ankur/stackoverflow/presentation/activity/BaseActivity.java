@@ -66,8 +66,8 @@ public abstract class BaseActivity extends ActionBarActivity {
         // or later, or by the code above on earlier versions of the
         // platform.
         if (this instanceof HomeActivity) {
-            ((HomeActivity) this).onKeyUp(KeyEvent.KEYCODE_BACK, null);
-            ((HomeActivity) this).onBackPressed();
+            this.onKeyUp(KeyEvent.KEYCODE_BACK, null);
+            this.onBackPressed();
         } else {
             backPress();
         }

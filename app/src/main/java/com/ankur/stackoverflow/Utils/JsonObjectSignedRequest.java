@@ -5,7 +5,6 @@ import com.android.volley.ParseError;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonRequest;
 
@@ -39,10 +38,5 @@ public class JsonObjectSignedRequest<T> extends JsonRequest<T> {
         } catch (Exception e) {
             return Response.error(new ParseError(e));
         }
-    }
-
-    @Override
-    public void deliverError(VolleyError error) {
-        super.deliverError(error);
     }
 }

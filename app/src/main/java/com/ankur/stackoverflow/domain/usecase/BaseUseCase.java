@@ -6,7 +6,6 @@ import com.ankur.stackoverflow.executor.ThreadExecutor;
 import java.util.concurrent.Future;
 
 public class BaseUseCase {
-    private static final String LOG_TAG = "BaseUseCase";
     protected boolean mAsync = true;
     protected boolean mApplyUserState;
     protected PostExecutionThread mPostExecutionThread;
@@ -43,14 +42,7 @@ public class BaseUseCase {
     }
 
     protected boolean isTaskRunning() {
-        if (mFuture == null) {
-            return false;
-        }
+        return mFuture != null && !(mFuture.isDone() || mFuture.isCancelled());
 
-        if (mFuture.isDone() || mFuture.isCancelled()) {
-            return false;
-        }
-
-        return true;
     }
 }

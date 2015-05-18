@@ -13,9 +13,9 @@ public class LocalConcurrentMapCache extends ConcurrentMapCache implements IEvic
     public static LocalConcurrentMapCache createCache(String name, ConcurrentMap<Object, Object> store,
                                                       long expiration, long maxSize, EvictionPolicy evictionPolicy) {
         if (evictionPolicy == EvictionPolicy.ALL_KEYS_LRU) {
-            return new LRUCache(name, new ConcurrentHashMap<Object, Object>(256), expiration, maxSize);
+            return new LRUCache(name, new ConcurrentHashMap<>(256), expiration, maxSize);
         }
-        return new LocalConcurrentMapCache(name, new ConcurrentHashMap<Object, Object>(256), expiration, maxSize);
+        return new LocalConcurrentMapCache(name, new ConcurrentHashMap<>(256), expiration, maxSize);
     }
 
     public LocalConcurrentMapCache(String name, ConcurrentMap<Object, Object> store, long expiration, long maxSize) {
@@ -61,10 +61,7 @@ public class LocalConcurrentMapCache extends ConcurrentMapCache implements IEvic
 
     @Override
     public boolean evictionRequired() {
-        if (maxSize <= 0) {
-            return false;
-        }
-        return getNativeCache().size() >= maxSize;
+        return maxSize > 0 && getNativeCache().size() >= maxSize;
     }
 
     @Override

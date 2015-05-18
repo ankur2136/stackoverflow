@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DatabaseItemSource implements ItemDataSource<QuestionItem> {
 
-    IItemDataSource mMediaDataSource;
+    private IItemDataSource mMediaDataSource;
 
     public DatabaseItemSource(Context context) {
         mMediaDataSource = new com.ankur.stackoverflow.data.datasource.database.ItemDataSource(context);

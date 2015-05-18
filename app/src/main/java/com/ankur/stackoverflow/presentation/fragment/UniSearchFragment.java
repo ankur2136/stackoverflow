@@ -114,11 +114,6 @@ public class UniSearchFragment extends PresenterFragment<ItemPresenter<QuestionI
     }
 
     @Override
-    public void onNewBundle(Bundle bundle) {
-        super.onNewBundle(bundle);
-    }
-
-    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
         menu.clear();
         LogUtils.debugLog(LOG_TAG, "onCreateOptionsMenu");

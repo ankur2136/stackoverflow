@@ -6,14 +6,12 @@ import java.util.Collection;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -31,29 +29,25 @@ import com.ankur.stackoverflow.utils.LogUtils;
 public class AnswersListFragment extends PresenterFragment<ItemPresenter<AnswerItem>> implements
         CollectionView<AnswerItem>, AnswerListAdapter.OnItemClickListener {
 
-    private static final String             FRAGMENT_TAG         = AnswersListFragment.class.getName();
+    private static final String             FRAGMENT_TAG      = AnswersListFragment.class.getName();
 
-    private String                          LOG_TAG              = "ANSWER_LIST_FRAGMENT";
+    private static final String             LOG_TAG           = "ANSWER_LIST_FRAGMENT";
 
-    private static final String             SCROLL_POSITION      = "scroll_position";
+    private static final String             SCROLL_POSITION   = "scroll_position";
 
-    private static final String             KEY_QUESTION_ITEM    = "question_item";
+    private static final String             KEY_QUESTION_ITEM = "question_item";
 
-    private int                             mScrollPosition      = 0;
+    private int                             mScrollPosition   = 0;
 
-    AnswerListAdapter                       mQuestionListAdapter;
+    private AnswerListAdapter               mQuestionListAdapter;
 
-    LinearLayoutManager                     mLinearLayoutManager;
+    private ListView                        mListView;
 
-    ListView                                mListView;
+    private QuestionItem                    mQuestionItem;
 
-    QuestionItem                            mQuestionItem;
+    private RelativeLayout                  mProgressView;
 
-    RelativeLayout                          mProgressView;
-
-    RelativeLayout                          mRetryView;
-
-    Button                                  mRetry;
+    private RelativeLayout                  mRetryView;
 
     private InteractionListener<AnswerItem> mListener;
 
@@ -150,7 +144,6 @@ public class AnswersListFragment extends PresenterFragment<ItemPresenter<AnswerI
         }
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -182,12 +175,10 @@ public class AnswersListFragment extends PresenterFragment<ItemPresenter<AnswerI
         mListView = (ListView) view.findViewById(R.id.lv_list_view);
         mProgressView = (RelativeLayout) view.findViewById(R.id.rl_progress);
         mRetryView = (RelativeLayout) view.findViewById(R.id.rl_retry);
-        mRetry = (Button) view.findViewById(R.id.bt_retry);
         getmActivity().getSupportActionBar().hide();
     }
 
     private void bindViews() {
-        mLinearLayoutManager = new LinearLayoutManager(this.getActivity());
         mQuestionListAdapter = new AnswerListAdapter(mActivity, new ArrayList<AnswerItem>());
         mListView.setAdapter(mQuestionListAdapter);
     }

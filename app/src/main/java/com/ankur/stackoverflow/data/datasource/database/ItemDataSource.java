@@ -18,10 +18,8 @@ public class ItemDataSource implements IItemDataSource {
 
     private static final String  LOG_TAG          = "ITEM_DATA_SOURCE";
     private final DatabaseHelper mDatabaseHelper;
-    private final Context        mContext;
 
     public ItemDataSource(Context context) {
-        this.mContext = context.getApplicationContext();
         this.mDatabaseHelper = DatabaseHelper.getInstance(context.getApplicationContext());
     }
 

@@ -10,8 +10,6 @@ import java.io.Serializable;
 
 public class AnswerItem implements Serializable, ParsingObject {
 
-    private final String LOG_TAG = "ANSWER_ITEM";
-
     public UserInfo      mOwnerInfo;
     public Integer       mDownVote;
     public Integer       mUpVote;
@@ -40,7 +38,7 @@ public class AnswerItem implements Serializable, ParsingObject {
 
         mDownVote = obj.optInt(ApiConstants.AnswerItem.DOWN_VOTE_COUNT, 0);
         mUpVote = obj.optInt(ApiConstants.AnswerItem.UP_VOTE_COUNT, 0);
-        mIsAccepted = obj.optBoolean(ApiConstants.AnswerItem.SCORE, false);
+        mIsAccepted = obj.optBoolean(ApiConstants.AnswerItem.IS_ACCEPTED, false);
         mScore = obj.optInt(ApiConstants.AnswerItem.SCORE, 0);
         mLastActivityDate = obj.optLong(ApiConstants.AnswerItem.LAST_ACTIVITY_DATE, 0);
         mLastEditDate = obj.optLong(ApiConstants.AnswerItem.LAST_EDIT_DATE, 0);

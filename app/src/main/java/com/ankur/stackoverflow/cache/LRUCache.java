@@ -54,9 +54,8 @@ public class LRUCache extends LocalConcurrentMapCache {
     }
 
     public void removeNode(DoubleLinkedListNode node) {
-        DoubleLinkedListNode cur = node;
-        DoubleLinkedListNode pre = cur.pre;
-        DoubleLinkedListNode post = cur.next;
+        DoubleLinkedListNode pre = node.pre;
+        DoubleLinkedListNode post = node.next;
 
         if (pre != null) {
             pre.next = post;
