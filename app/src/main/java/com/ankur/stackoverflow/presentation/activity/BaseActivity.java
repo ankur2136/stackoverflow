@@ -18,12 +18,6 @@ public abstract class BaseActivity extends ActionBarActivity {
 
     private static final String LOG_TAG   = "BASE_ACTIVITY";
 
-    private MyApplication       mMyApplication;
-
-    private boolean             mIsPaused = false;
-
-    private Menu                mToolbarMenu;
-
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
@@ -37,12 +31,7 @@ public abstract class BaseActivity extends ActionBarActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        mToolbarMenu = menu;
         return super.onPrepareOptionsMenu(menu);
-    }
-
-    public void clearMenu() {
-        mToolbarMenu.clear();
     }
 
     @Override
@@ -50,10 +39,6 @@ public abstract class BaseActivity extends ActionBarActivity {
         if (LogUtils.isDebugLogEnabled())
             LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onCreate(): " + this.getClass().getSimpleName());
         super.onCreate(savedInstanceState);
-        mMyApplication = (MyApplication) getApplicationContext();
-
-        if (savedInstanceState == null) {
-        }
     }
 
     @Override
@@ -89,7 +74,6 @@ public abstract class BaseActivity extends ActionBarActivity {
     protected void onResume() {
         if (LogUtils.isDebugLogEnabled())
             LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onResume(): " + this.getClass().getSimpleName());
-        mIsPaused = false;
         super.onResume();
     }
 
@@ -97,7 +81,6 @@ public abstract class BaseActivity extends ActionBarActivity {
     protected void onPause() {
         if (LogUtils.isDebugLogEnabled())
             LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onPause(): " + this.getClass().getSimpleName());
-        mIsPaused = true;
         super.onPause();
     }
 
@@ -120,10 +103,6 @@ public abstract class BaseActivity extends ActionBarActivity {
         if (LogUtils.isDebugLogEnabled())
             LogUtils.debugLog(LOG_TAG, "[LIFECYCLE] onActivityResult(): " + this.getClass().getSimpleName());
         super.onActivityResult(arg0, arg1, arg2);
-    }
-
-    public MyApplication getMyApplication() {
-        return mMyApplication;
     }
 
     protected void backPress() {
@@ -157,10 +136,6 @@ public abstract class BaseActivity extends ActionBarActivity {
         } else {
             backPress();
         }
-    }
-
-    public boolean isPaused() {
-        return mIsPaused;
     }
 
     @Override

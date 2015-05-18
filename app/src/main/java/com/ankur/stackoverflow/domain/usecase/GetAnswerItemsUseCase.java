@@ -35,11 +35,6 @@ public class GetAnswerItemsUseCase extends BaseUseCase implements GetItemsUseCas
     }
 
     @Override
-    public void removeListener() {
-        mCallback = null;
-    }
-
-    @Override
     public void run() {
         try {
             List<AnswerItem> result = mContentRepository.getAnswersForQuestion(mQuestionId);
@@ -48,12 +43,6 @@ public class GetAnswerItemsUseCase extends BaseUseCase implements GetItemsUseCas
             LogUtils.errorLog(LOG_TAG, "Exception on background thread... ", e);
             notifyOnError(e);
         }
-    }
-
-    @Override
-    public void onContentChanged(String contentId) {
-        // Content changed, get latest list again
-        getData();
     }
 
     private void getData() {
