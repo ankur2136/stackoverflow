@@ -1,9 +1,5 @@
 package com.ankur.stackoverflow.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import android.content.Context;
 import android.graphics.Typeface;
 
@@ -24,20 +20,11 @@ public class FontUtils {
 
     private static final String             FONT_PATH_PREFIX      = "fonts/";
 
-    private static Map<FontStyle, Typeface> fontMap               = new ConcurrentHashMap<FontStyle, Typeface>();
 
     public enum FontStyle {
         REGULAR(0), BOLD(1), CONDENSED(2), CONDENSED_BOLD(3), LIGHT(4);
 
         private final int                      id;
-
-        private static Map<Integer, FontStyle> idToFontStyleMap = new HashMap<Integer, FontStyle>();
-
-        static {
-            for (FontStyle style : FontStyle.values()) {
-                idToFontStyleMap.put(style.getId(), style);
-            }
-        }
 
         private FontStyle(int id) {
             this.id = id;
@@ -47,22 +34,6 @@ public class FontUtils {
             return this.id;
         }
 
-        public static FontStyle getFontStyleById(int id) {
-            if (idToFontStyleMap.containsKey(id)) {
-                return idToFontStyleMap.get(id);
-            }
-
-            return REGULAR;
-        }
-    }
-
-    public static Typeface getFont(Context context, int fontStyleId) {
-        return getFont(context, fontStyleId, null);
-    }
-
-    public static Typeface getFont(Context context, int fontStyleId, String appLangCode) {
-        FontStyle fontStyle = FontStyle.getFontStyleById(fontStyleId);
-        return getFont(context, fontStyle, appLangCode);
     }
 
     public static Typeface getFont(Context context, FontStyle fontStyle) {
@@ -75,7 +46,7 @@ public class FontUtils {
             appLangCode = "en";
         }
 
-        String fontNamePrefix = null;
+        String fontNamePrefix;
 
         if (appLangCode.equalsIgnoreCase("en")) {
             fontNamePrefix = ENGLISH_FONT_NAME;
@@ -84,7 +55,7 @@ public class FontUtils {
             fontNamePrefix = ENGLISH_FONT_NAME;
         }
 
-        String fontNameSuffix = null;
+        String fontNameSuffix;
 
         switch (fontStyle) {
         case REGULAR:
@@ -130,14 +101,7 @@ public class FontUtils {
             }
         }
 
-        if (appLangCode.equalsIgnoreCase("en")) {
-            fontMap.put(fontStyle, typeface);
-        }
         return typeface;
-    }
-
-    public static void reset() {
-        fontMap.clear();
     }
 
 }

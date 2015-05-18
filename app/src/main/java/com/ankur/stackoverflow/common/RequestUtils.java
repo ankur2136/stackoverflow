@@ -31,9 +31,7 @@ public class RequestUtils {
 
     public static <T> JsonRequest<T> getRequest(T object, Context context, int method, String url,
             JSONObject jsonRequest, Response.Listener<T> listener, Response.ErrorListener errorListener) {
-        MyApplication application = (MyApplication) context.getApplicationContext();
-        JsonRequest<T> request = new JsonObjectSignedRequest(object, method, url, jsonRequest, listener, errorListener,
-                application);
+        JsonRequest<T> request = new JsonObjectSignedRequest(object, method, url, jsonRequest, listener, errorListener);
         setRequestRetryPolicy(context, request);
         return request;
     }

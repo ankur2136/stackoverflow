@@ -12,37 +12,6 @@ public class NetworkUtils {
         return cm.getActiveNetworkInfo();
     }
 
-    public static boolean isConnected(Context context) {
-        NetworkInfo activeNetwork = getActiveNetworkInfo(context);
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-    }
-
-    public static boolean isConnectedToMI(Context context) {
-        ConnectivityManager connectionManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectionManager != null) {
-            NetworkInfo info = connectionManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-            if (info != null)
-                if (info.getState() == NetworkInfo.State.CONNECTED) {
-                    return true;
-                }
-        }
-        return false;
-    }
-
-    public static boolean isConnectedToWiFi(Context context) {
-        ConnectivityManager connectionManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectionManager != null) {
-            NetworkInfo info = connectionManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            if (info != null)
-                if (info.getState() == NetworkInfo.State.CONNECTED) {
-                    return true;
-                }
-        }
-        return false;
-    }
-
     /**
      * Check if there is fast connectivity
      *
@@ -52,18 +21,6 @@ public class NetworkUtils {
     public static boolean isConnectedFast(Context context) {
         NetworkInfo info = getActiveNetworkInfo(context);
         return (info != null && info.isConnected() && NetworkUtils.isConnectionFast(info.getType(), info.getSubtype()));
-    }
-
-    public static int getNetworkType(Context context) {
-        NetworkInfo info = getActiveNetworkInfo(context);
-        if (info != null && info.isConnected()) {
-            if (info.getType() == ConnectivityManager.TYPE_WIFI) {
-                return 0;
-            } else {
-                return info.getSubtype();
-            }
-        }
-        return -1;
     }
 
     /**
